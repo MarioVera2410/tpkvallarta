@@ -8,7 +8,7 @@
         body {
             font-family: Arial, sans-serif;
 	
-            background-image: url('tpkvallarta.jpg');
+            background-image: url('vallartatpk.jpg');
             background-size: cover; /* Hace que la imagen cubra toda la página */
             background-position: center; /* Centra la imagen de fondo */
             background-repeat: no-repeat; /* Evita que la imagen se repita */
@@ -20,12 +20,13 @@
             padding: 0;
 	    overflow: hidden;
 
- 
+	 
         }
         .container {
             margin-top: 50px;
             border-radius: 10px; /* Bordes redondeados */
             padding: 20px; /* Espacio interno */
+            
         }
         h1 {
             color: white; /* Cambia el color del texto del encabezado a blanco */
@@ -38,7 +39,7 @@
         .tombola {
             width: 300px;
             height: 300px;
-            border: 0px solid #000;
+            border: 0px;
             border-radius: 50%;
             margin: 50px auto;
             position: relative;
@@ -51,14 +52,14 @@
             to { transform: translate(-50%, -50%) rotate(360deg); }
         }
         .winner {
-            font-size: 3vw;
+            font-size: 10vw;
             font-weight: bold;
             color: white;
             margin-top: 30px;
         }
         .result {
     display: none; /* Mantiene el elemento oculto por defecto */
-    font-size: 20px;
+    font-size: 50px;
     margin-top: 20px;
     padding: 15px;
     border-radius: 10px;
@@ -77,23 +78,38 @@
         .show {
             display: block;
         }
-        .cinta {
-            width: 150000%;
+        .cinta, .cinta3 {
+            width: 25000%;
             overflow: hidden;
-            padding: 10	px 0;
-            margin-top: 205px;
+            padding: 10px 0;
+            margin-top: 10px;
             position: relative;
+	}
+        .cinta2 {
+            width: 25000%;
+	    overflow: hidden;
+            padding: 10px 0;
+            margin-top: 10px;
         }
         .scroll {
-            display: flex; /* Usar flexbox para colocar elementos en línea */
-            animation: scroll 15000s linear infinite; /* Ajustar la duración para que se vea más lento */
-            will-change: transform; /* Mejora el rendimiento de la animación */
+            display: flex;
+            animation: scroll 2000s linear infinite;
+            will-change: transform;
+	}
+ 	.scroll2 {
+            display: flex;
+            animation: scrollRight 3500s linear infinite;
+            will-change: transform;
         }
         @keyframes scroll {
             from { transform: translateX(0); }
-            to { transform: translateX(-100%); } /* Mover la cinta un 100% hacia la izquierda */
+            to { transform: translateX(-100%); }
         }
-        .box {
+        @keyframes scrollRight {
+            from { transform: translateX(-10%); }
+            to { transform: translateX(100%); }
+        }
+          .box {
             display: inline-block;
             margin: 0 15px; /* Espacio entre las cajas */
             padding: 30px;
@@ -103,7 +119,7 @@
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
             text-align: center;
             white-space: nowrap;
-            font-size: 18px; /* Aumentar el tamaño de la fuente */
+            font-size: 50px; /* Aumentar el tamaño de la fuente */
         }
 
 	.boxA {
@@ -116,25 +132,20 @@
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
             text-align: center;
             white-space: nowrap;
-            font-size: 20px; /* Aumentar el tamaño de la fuente */
+            font-size: 50px; /* Aumentar el tamaño de la fuente */
         }
-
-        /* Estilo para el contador */
         #countdown {
-            font-size: 300px;
+            font-size: 350px;
             font-weight: bold;
             margin-top: 20px;
-            color: white;
+            color: black;
         }
-
-        /* Clase para ocultar elementos */
         .hidden {
             display: none;
         }
-        /* Estilo del botón */
         #startBtn {
             margin-top: 8px; /* Mueve el botón hacia abajo */
-            font-size: 18px; /* Aumentar el tamaño de la fuente */
+            font-size: 35px; /* Aumentar el tamaño de la fuente */
             padding: 15px 30px; /* Aumentar el padding para hacer el botón más grande */
             border: 2px solid #000; /* Añadir borde */
             border-radius: 10px; /* Bordes redondeados */
@@ -145,713 +156,567 @@
         #startBtn:hover {
             background-color: #45a049; /* Cambiar el fondo cuando se pasa el cursor */
         }
-        /* Estilo para los cercanos */
         #closestResults {
-            display: none; /* Oculto por defecto */
+            display: none;
             font-size: 18px;
             margin-top: 20px;
-            background-color: white; /* Agrega un fondo blanco */
-            padding: 10px; /* Espaciado interno */
-            border-radius: 10px; /* Bordes redondeados */
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
         }
+	    .billete {
+            position: absolute;
+	    font-size: 40px;
+            width: 100px;
+            height: 50px;
+            background: green;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            opacity: 0.8;
+            transform: rotate(20deg);
+            animation: caer 5s linear infinite;
+        }
+
+        @keyframes caer {
+            0% {
+                transform: translateY(-1920px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+	    }
     </style>
-    <!-- Agrega la biblioteca de confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
     <div class="container">
-         <div class="tombola">
-            
-        </div>
-
+        <div class="tombola"></div>
         <div id="participantsList">
             <h2><br></h2>
-            <div class="cinta" id="cinta">
+            <div class="cinta" id="cinta"> 
                 <div class="scroll">
-                    <div class="box"><span>Ruben Silva  - 32150</span></div>
-<div class="box"><span>JAVIER SAINZ - 25000</span></div>
-<div class="box"><span>Rafael Pereyra HernÃ¡ndez  - 22537</span></div>
-<div class="box"><span>Rafael Pereyra HernÃ¡ndez  - 20327</span></div>
-<div class="box"><span>Javier Sainz  - 20000</span></div>
-<div class="box"><span>Jaime Francisco  - 17500</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 17197</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 16870</span></div>
-<div class="box"><span>Daniel Mascorro GuzmÃ¡n  - 16705</span></div>
-<div class="box"><span>Josue - 16500</span></div>
-<div class="box"><span>Daniel Mascorro GuzmÃ¡n  - 16000</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 15648</span></div>
-<div class="box"><span>Javier Sainz  - 15000</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 14876</span></div>
-<div class="box"><span>Pablo Hernandez - 14800</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 14682</span></div>
-<div class="box"><span>Pedro Arturo CiprÃ©s Villa - 14640</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 14457</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 14209</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 14003</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 13888</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 13655</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 13523</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 13409</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 13231</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 13199</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 13087</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 12941</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 12866</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 12723</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 12651</span></div>
-<div class="box"><span>Victor Aguilar - 12648</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 12555</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 12494</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 12352</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 12213</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 12105</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 11907</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 11833</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 11777</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 11666</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 11540</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 11423</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 11341</span></div>
-<div class="box"><span>Oscar Campos - 11287</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 11256</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 11111</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 11003</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 10981</span></div>
-<div class="box"><span>Pedro Arturo CiprÃ©s Villa - 10834</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 10697</span></div>
-<div class="box"><span>Ãngel Fernando MartÃ­nez Vanegas  - 10566</span></div>
-<div class="box"><span>Jorge Eugenio GÃ³mez SÃ¡nchez  - 10565</span></div>
-<div class="box"><span>Oscar Campos - 10322</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 10277</span></div>
-<div class="box"><span>David Jimenez Arias - 10208</span></div>
-<div class="box"><span>Victor Aguilar - 9463</span></div>
-<div class="box"><span>Jorge Eugenio GÃ³mez SÃ¡nchez  - 9300</span></div>
-<div class="box"><span>Pedro Arturo CiprÃ©s Villa - 9239</span></div>
-<div class="box"><span>Oscar Campos - 9128</span></div>
-<div class="box"><span>Oscar Campos - 8628</span></div>
-<div class="box"><span>Pedro Arturo CiprÃ©s Villa - 8358</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 8100</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 8050</span></div>
-<div class="box"><span>Abraham GarcÃ­a  - 8000</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 8000</span></div>
-<div class="box"><span>Carlos Abraham GarcÃ­a Ortega  - 8000</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7950</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7900</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7850</span></div>
-<div class="box"><span>Jorge Eugenio GÃ³mez SÃ¡nchez  - 7850</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7800</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7750</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7700</span></div>
-<div class="box"><span>Pedro Arturo CiprÃ©s Villa - 7691</span></div>
-<div class="box"><span>Oscar Campos - 7662</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7650</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7600</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7550</span></div>
-<div class="box"><span>Kevin Navarro  - 7534</span></div>
-<div class="box"><span>Alfredo GarcÃ­a Delgado - 7500</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7500</span></div>
-<div class="box"><span>Humberto Ramirez Valenzuela  - 7500</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7450</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7400</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7350</span></div>
-<div class="box"><span>Alfredo GarcÃ­a Delgado - 7305</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7300</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7250</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 7250</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7200</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7150</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7100</span></div>
-<div class="box"><span>JesÃºs Eduardo Salazar Armenta - 7080</span></div>
-<div class="box"><span>Victor Aguilar - 7078</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7050</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 7000</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6950</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6900</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6850</span></div>
-<div class="box"><span>Jorge Eugenio GÃ³mez SÃ¡nchez  - 6850</span></div>
-<div class="box"><span>Kevin Navarro  - 6841</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6800</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6750</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6700</span></div>
-<div class="box"><span>Simonetta - 6695</span></div>
-<div class="box"><span>Simonetta  - 6695</span></div>
-<div class="box"><span>Simonetta - 6695</span></div>
-<div class="box"><span>Rodrigo Benoni Real Tapia  - 6666</span></div>
-<div class="box"><span>Hector Miguel Ibarra Morales  - 6666</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6650</span></div>
-<div class="box"><span>Pedro Arturo CiprÃ©s Villa - 6636</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6600</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6550</span></div>
-<div class="box"><span>Eduardo Mendoza Castillo  - 6500</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6500</span></div>
-<div class="box"><span>german rios acosta - 6500</span></div>
-<div class="box"><span>Rafael HernÃ¡ndez Del Toro - 6470</span></div>
-<div class="box"><span>Rafael HernÃ¡ndez Del Toro - 6470</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6450</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6400</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6350</span></div>
-<div class="box"><span>Kevin Navarro  - 6344</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6300</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6250</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6200</span></div>
-<div class="box"><span>Rafael HernÃ¡ndez Del Toro - 6200</span></div>
-<div class="box"><span>moises Emmanuel Flores gonzalez  - 6172</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6150</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 6144</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 6116</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6100</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 6088</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 6060</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6050</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 6032</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 6004</span></div>
-<div class="box"><span>Gonzalo Enrique - 6000</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 6000</span></div>
-<div class="box"><span>Rodrigo Benoni Real Tapia  - 6000</span></div>
-<div class="box"><span>Rafael HernÃ¡ndez Del Toro - 6000</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 6000</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5976</span></div>
-<div class="box"><span>Rafael HernÃ¡ndez Del Toro - 5970</span></div>
-<div class="box"><span>Rafael HernÃ¡ndez Del Toro - 5970</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5950</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5948</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5920</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5900</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 5900</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5892</span></div>
-<div class="box"><span>Pedro Arturo CiprÃ©s Villa - 5875</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5864</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5850</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5836</span></div>
-<div class="box"><span>Hector Miguel Ibarra Morales  - 5820</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5808</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5800</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 5800</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5780</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5752</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5750</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5724</span></div>
-<div class="box"><span>Alfredo GarcÃ­a Delgado - 5703</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5700</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 5700</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5696</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5668</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5650</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5640</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5612</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5600</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 5600</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5584</span></div>
-<div class="box"><span>Hector Miguel Ibarra Morales  - 5580</span></div>
-<div class="box"><span>Jorge Eugenio GÃ³mez SÃ¡nchez  - 5565</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5556</span></div>
-<div class="box"><span>Rodrigo Real Tapia  - 5555</span></div>
-<div class="box"><span>Rodrigo Benoni Real Tapia  - 5555</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5550</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5528</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5500</span></div>
-<div class="box"><span>Carlos espinosa - 5500</span></div>
-<div class="box"><span>Rafael HernÃ¡ndez Del Toro - 5500</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5500</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 5500</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5450</span></div>
-<div class="box"><span>Cris - 5400</span></div>
-<div class="box"><span>Carlos - 5400</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5400</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 5400</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5350</span></div>
-<div class="box"><span>Erik Giovanni Romo Macias - 5310</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5300</span></div>
-<div class="box"><span>Ãngel Fernando MartÃ­nez Vanegas  - 5283</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5250</span></div>
-<div class="box"><span>Erik Giovanni Romo Macias - 5244</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5200</span></div>
-<div class="box"><span>german rios acosta - 5200</span></div>
-<div class="box"><span>Hector Miguel Ibarra Morales  - 5200</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5150</span></div>
-<div class="box"><span>MoisÃ©s Emmanuel Flores GonzÃ¡lez  - 5125</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5100</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5050</span></div>
-<div class="box"><span>JesÃºs Villarreal  - 5000</span></div>
-<div class="box"><span>Javier Sainz  - 5000</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 5000</span></div>
-<div class="box"><span>german rios acosta - 5000</span></div>
-<div class="box"><span>Martha Covarrubias  - 5000</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4950</span></div>
-<div class="box"><span>Pedro Arturo CiprÃ©s Villa - 4945</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4900</span></div>
-<div class="box"><span>german rios acosta - 4900</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4850</span></div>
-<div class="box"><span>Erik Giovanni Romo Macias - 4825</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4800</span></div>
-<div class="box"><span>german rios acosta - 4800</span></div>
-<div class="box"><span>Eduardo Chavez - 4800</span></div>
-<div class="box"><span>Hector Miguel Ibarra Morales  - 4800</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4750</span></div>
-<div class="box"><span>Alfredo nieto - 4740</span></div>
-<div class="box"><span>Saul Vazquez mora - 4730</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4700</span></div>
-<div class="box"><span>german rios acosta - 4700</span></div>
-<div class="box"><span>Carlos espinosa - 4700</span></div>
-<div class="box"><span>Kevin Navarro  - 4700</span></div>
-<div class="box"><span>Erik Giovanni Romo MacÃ­as - 4692</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4650</span></div>
-<div class="box"><span>Hector Miguel Ibarra Morales  - 4650</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4600</span></div>
-<div class="box"><span>german rios acosta - 4600</span></div>
-<div class="box"><span>Martha Covarrubias  - 4600</span></div>
-<div class="box"><span>Erik Giovanni Romo Macias - 4578</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4550</span></div>
-<div class="box"><span>Pedro Arturo CiprÃ©s Villa - 4539</span></div>
-<div class="box"><span>Alfredo nieto - 4530</span></div>
-<div class="box"><span>Javier Marin - 4500</span></div>
-<div class="box"><span>Saul Vazquez mora - 4500</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4500</span></div>
-<div class="box"><span>german rios acosta - 4500</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4450</span></div>
-<div class="box"><span>Carlos espinosa - 4421</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4400</span></div>
-<div class="box"><span>german rios acosta - 4400</span></div>
-<div class="box"><span>Hector Miguel Ibarra Morales  - 4400</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4350</span></div>
-<div class="box"><span>Victor Aguilar - 4308</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4300</span></div>
-<div class="box"><span>german rios acosta - 4300</span></div>
-<div class="box"><span>Carlos espinosa - 4300</span></div>
-<div class="box"><span>Orlando arias  - 4270</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4250</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 4224</span></div>
-<div class="box"><span>omar rodriguez torres - 4200</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4200</span></div>
-<div class="box"><span>german rios acosta - 4200</span></div>
-<div class="box"><span>Carlos espinosa - 4200</span></div>
-<div class="box"><span>Victor Aguilar - 4181</span></div>
-<div class="box"><span>Hector Miguel Ibarra Morales  - 4153</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4150</span></div>
-<div class="box"><span>Alfredo nieto - 4100</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4100</span></div>
-<div class="box"><span>german rios acosta - 4100</span></div>
-<div class="box"><span>Carlos espinosa - 4100</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4050</span></div>
-<div class="box"><span>Ruben Silva  - 4000</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 4000</span></div>
-<div class="box"><span>german rios acosta - 4000</span></div>
-<div class="box"><span>Oscar Campos - 4000</span></div>
-<div class="box"><span>Carlos espinosa - 4000</span></div>
-<div class="box"><span>Marcos Fernando Cedillo de la Vega - 3956</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3950</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 3926</span></div>
-<div class="box"><span>Pedro Arturo CiprÃ©s Villa - 3907</span></div>
-<div class="box"><span>Alfredo nieto - 3900</span></div>
-<div class="box"><span>Javier marin  - 3900</span></div>
-<div class="box"><span>omar rodriguez torres - 3900</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3900</span></div>
-<div class="box"><span>german rios acosta - 3900</span></div>
-<div class="box"><span>Carlos espinosa - 3900</span></div>
-<div class="box"><span>Hector Miguel Ibarra Morales  - 3900</span></div>
-<div class="box"><span>Orlando arias  - 3890</span></div>
-<div class="box"><span>Misael Maciel Macias  - 3850</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3850</span></div>
-<div class="box"><span>Orlando arias - 3850</span></div>
-<div class="box"><span>Misael Maciel Macias  - 3820</span></div>
-<div class="box"><span>Misael Maciel Macias  - 3802</span></div>
-<div class="box"><span>Emmanuel eduardo herrera gutierrez  - 3800</span></div>
-<div class="box"><span>omar rodriguez torres - 3800</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3800</span></div>
-<div class="box"><span>german rios acosta - 3800</span></div>
-<div class="box"><span>Carlos espinosa - 3800</span></div>
-<div class="box"><span>Juan ramon estrada gonzalez - 3800</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3750</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 3750</span></div>
-<div class="box"><span>Misael Maciel Macias - 3745</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 3724</span></div>
-<div class="box"><span>Giovanni cataneo  - 3720</span></div>
-<div class="box"><span>Misael Maciel Macias - 3710</span></div>
-<div class="box"><span>Saul Vazquez mora - 3700</span></div>
-<div class="box"><span>omar rodriguez torres - 3700</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3700</span></div>
-<div class="box"><span>german rios acosta - 3700</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 3700</span></div>
-<div class="box"><span>Misael Maciel Macias - 3689</span></div>
-<div class="box"><span>Kevin Navarro  - 3668</span></div>
-<div class="box"><span>Martin Guerrero  - 3650</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3650</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 3650</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 3624</span></div>
-<div class="box"><span>Misael Maciel Macias - 3620</span></div>
-<div class="box"><span>Misael Maciel Macias - 3615</span></div>
-<div class="box"><span>Saul Vazquez mora - 3600</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3600</span></div>
-<div class="box"><span>german rios acosta - 3600</span></div>
-<div class="box"><span>Hector Miguel Ibarra Morales  - 3600</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 3600</span></div>
-<div class="box"><span>Marcos Fernando Cedillo de la Vega - 3579</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 3569</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3550</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 3550</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 3524</span></div>
-<div class="box"><span>Marcos Fernando Cedillo de la Vega - 3519</span></div>
-<div class="box"><span>Marcos Fernando Cedillo de la Vega - 3519</span></div>
-<div class="box"><span>Juan ramon estrada gonzalez - 3507</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 3506</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 3504</span></div>
-<div class="box"><span>Misael Maciel Macias  - 3501</span></div>
-<div class="box"><span>Francisco Javier GuzmÃ¡n Angulo - 3500</span></div>
-<div class="box"><span>omar rodriguez torres - 3500</span></div>
-<div class="box"><span>Javier Sainz  - 3500</span></div>
-<div class="box"><span>Cesar oseguera - 3500</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3500</span></div>
-<div class="box"><span>german rios acosta - 3500</span></div>
-<div class="box"><span>Oscar Campos - 3500</span></div>
-<div class="box"><span>Martha Covarrubias  - 3500</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 3500</span></div>
-<div class="box"><span>Martin Guerrero  - 3485</span></div>
-<div class="box"><span>Hector Miguel Ibarra Morales  - 3458</span></div>
-<div class="box"><span>Cesar oseguera - 3450</span></div>
-<div class="box"><span>Esteban GarcÃ­a Cabrera  - 3450</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3450</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 3426</span></div>
-<div class="box"><span>Misael Maciel Macias  - 3400</span></div>
-<div class="box"><span>Esteban GarcÃ­a Cabrera  - 3400</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3400</span></div>
-<div class="box"><span>german rios acosta - 3400</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 3400</span></div>
-<div class="box"><span>Misael Maciel Macias  - 3350</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3350</span></div>
-<div class="box"><span>Martin Guerrero  - 3333</span></div>
-<div class="box"><span>Giovanni cataneo  - 3333</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 3329</span></div>
-<div class="box"><span>Esteban GarcÃ­a Cabrera  - 3300</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3300</span></div>
-<div class="box"><span>german rios acosta - 3300</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 3300</span></div>
-<div class="box"><span>Miguel Plascencia  - 3289</span></div>
-<div class="box"><span>Miguel Plascencia  - 3282</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3250</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 3246</span></div>
-<div class="box"><span>Miguel Plascencia  - 3219</span></div>
-<div class="box"><span>Francisco Alcaraz - 3218</span></div>
-<div class="box"><span>David Jimenez Arias - 3215</span></div>
-<div class="box"><span>Ruben Silva  - 3200</span></div>
-<div class="box"><span>Francisco Javier GuzmÃ¡n Angulo - 3200</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3200</span></div>
-<div class="box"><span>Juan ramon estrada gonzalez - 3200</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 3200</span></div>
-<div class="box"><span>Nahum Ramirez  - 3180</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 3169</span></div>
-<div class="box"><span>Victor Aguilar - 3165</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3150</span></div>
-<div class="box"><span>Miguel Plascencia  - 3119</span></div>
-<div class="box"><span>Francisco Alcaraz - 3106</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3100</span></div>
-<div class="box"><span>Juan ramon estrada gonzalez - 3100</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 3100</span></div>
-<div class="box"><span>Giovanni cataneo  - 3095</span></div>
-<div class="box"><span>JosÃ© Antonio SaldÃ­var Plascencia - 3090</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 3056</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3050</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 3050</span></div>
-<div class="box"><span>Francisco Alcaraz - 3017</span></div>
-<div class="box"><span>Javier marin  - 3000</span></div>
-<div class="box"><span>JesÃºs Villarreal  - 3000</span></div>
-<div class="box"><span>omar rodriguez torres - 3000</span></div>
-<div class="box"><span>Julio Cesar AlcalÃ¡ Morales  - 3000</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 3000</span></div>
-<div class="box"><span>Francisco Alcaraz - 3000</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 3000</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 3000</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 2969</span></div>
-<div class="box"><span>Julio Cesar AlcalÃ¡ Morales  - 2960</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 2953</span></div>
-<div class="box"><span>JosÃ© MartÃ­n  - 2950</span></div>
-<div class="box"><span>Julio Cesar AlcalÃ¡ Morales  - 2950</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 2950</span></div>
-<div class="box"><span>Francisco Alcaraz - 2950</span></div>
-<div class="box"><span>Marcos Fernando Cedillo de la Vega - 2919</span></div>
-<div class="box"><span>Esteban GarcÃ­a Cabrera  - 2903</span></div>
-<div class="box"><span>JosÃ© Antonio SaldÃ­var Plascencia - 2901</span></div>
-<div class="box"><span>Julio Cesar AlcalÃ¡ Morales  - 2900</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 2900</span></div>
-<div class="box"><span>Carlos espinosa - 2900</span></div>
-<div class="box"><span>Martha covarrubias - 2900</span></div>
-<div class="box"><span>Francisco Alcaraz - 2900</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2900</span></div>
-<div class="box"><span>Francisco Alcaraz - 2896</span></div>
-<div class="box"><span>Julio Cesar AlcalÃ¡ Morales  - 2890</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 2890</span></div>
-<div class="box"><span>Giovanni cataneo  - 2876</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 2863</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 2850</span></div>
-<div class="box"><span>Francisco Alcaraz - 2850</span></div>
-<div class="box"><span>Juan Pablo GarduÃ±o Calderon - 2800</span></div>
-<div class="box"><span>Julio Cesar AlcalÃ¡ Morales  - 2800</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 2800</span></div>
-<div class="box"><span>Juan ramon estrada gonzalez - 2800</span></div>
-<div class="box"><span>Francisco Alcaraz - 2800</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2800</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 2783</span></div>
-<div class="box"><span>Julio Cesar AlcalÃ¡ Morales  - 2780</span></div>
-<div class="box"><span>Marcos Fernando Cedillo de la Vega - 2769</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 2752</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 2750</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 2748</span></div>
-<div class="box"><span>JosÃ© Antonio SaldÃ­var Plascencia - 2745</span></div>
-<div class="box"><span>Armando becerra flores  - 2705</span></div>
-<div class="box"><span>Julio Cesar AlcalÃ¡ Morales  - 2700</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 2700</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 2659</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 2650</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 2624</span></div>
-<div class="box"><span>Edgardo Reyes GarcÃ­a  - 2617</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2615</span></div>
-<div class="box"><span>Juan Pablo GarduÃ±o Calderon - 2600</span></div>
-<div class="box"><span>Julio Cesar AlcalÃ¡ Morales  - 2600</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 2600</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2599</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2590</span></div>
-<div class="box"><span>Javier marin  - 2580</span></div>
-<div class="box"><span>Brian Amador - 2569</span></div>
-<div class="box"><span>JosÃ© Antonio SaldÃ­var Plascencia - 2565</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 2550</span></div>
-<div class="box"><span>Nahum Ramirez  - 2550</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 2524</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2520</span></div>
-<div class="box"><span>Pedro Arturo CiprÃ©s Villa - 2519</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2515</span></div>
-<div class="box"><span>Alfonso de alba - 2502</span></div>
-<div class="box"><span>Alfonso de alba - 2501</span></div>
-<div class="box"><span>Hector Navarrete  - 2500</span></div>
-<div class="box"><span>Julio Cesar AlcalÃ¡ Morales  - 2500</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 2500</span></div>
-<div class="box"><span>Victor Sotomayor - 2500</span></div>
-<div class="box"><span>Carlos espinosa - 2500</span></div>
-<div class="box"><span>Alfonso de alba - 2500</span></div>
-<div class="box"><span>Juan ramon estrada gonzalez - 2500</span></div>
-<div class="box"><span>Alfonso de alba - 2499</span></div>
-<div class="box"><span>Alfonso de alba - 2498</span></div>
-<div class="box"><span>Alfonso de alba - 2497</span></div>
-<div class="box"><span>Irving fernando palma montes  - 2496</span></div>
-<div class="box"><span>Alfonso de alba - 2496</span></div>
-<div class="box"><span>Alfonso de alba - 2495</span></div>
-<div class="box"><span>Alfonso de alba - 2492</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 2491</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2480</span></div>
-<div class="box"><span>Javier sainz - 2475</span></div>
-<div class="box"><span>Francisco Alcaraz - 2459</span></div>
-<div class="box"><span>Rafael Pereyra HernÃ¡ndez  - 2457</span></div>
-<div class="box"><span>Diego Isaac RodrÃ­guez Arizona - 2456</span></div>
-<div class="box"><span>Esteban GarcÃ­a Cabrera  - 2450</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 2450</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2450</span></div>
-<div class="box"><span>JesÃºs MarÃ­n GarcÃ­a  - 2440</span></div>
-<div class="box"><span>Rafael Pereyra HernÃ¡ndez  - 2437</span></div>
-<div class="box"><span>Brian Amador - 2423</span></div>
-<div class="box"><span>Nahum Ramirez  - 2422</span></div>
-<div class="box"><span>Giovanni cataneo  - 2420</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2415</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2415</span></div>
-<div class="box"><span>Juan Pablo GarduÃ±o Calderon - 2400</span></div>
-<div class="box"><span>JesÃºs MarÃ­n GarcÃ­a  - 2400</span></div>
-<div class="box"><span>Julio Cesar AlcalÃ¡ Morales  - 2400</span></div>
-<div class="box"><span>Esteban GarcÃ­a Cabrera  - 2400</span></div>
-<div class="box"><span>Edgar Escobar Herrera - 2400</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2400</span></div>
-<div class="box"><span>Diego Isaac RodrÃ­guez Arizona - 2388</span></div>
-<div class="box"><span>Francisco Alcaraz - 2367</span></div>
-<div class="box"><span>Hector Navarrete  - 2350</span></div>
-<div class="box"><span>Javier sainz - 2335</span></div>
-<div class="box"><span>Prasanth Sreepathi - 2320</span></div>
-<div class="box"><span>Prasanth Sreepathi - 2320</span></div>
-<div class="box"><span>Arya Gupta - 2320</span></div>
-<div class="box"><span>Arya Gupta - 2320</span></div>
-<div class="box"><span>Brian Amador - 2315</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2315</span></div>
-<div class="box"><span>Jahat Lindoro - 2307</span></div>
-<div class="box"><span>Julio Cesar AlcalÃ¡ Morales  - 2300</span></div>
-<div class="box"><span>Esteban GarcÃ­a Cabrera - 2300</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2300</span></div>
-<div class="box"><span>JosÃ© Antonio SaldÃ­var Plascencia - 2295</span></div>
-<div class="box"><span>Luis Eduardo de la torre MartÃ­nez  - 2230</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 2226</span></div>
-<div class="box"><span>Miguel Ãngel Varela maldonado - 2220</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2210</span></div>
-<div class="box"><span>Diego Isaac RodrÃ­guez Arizona - 2208</span></div>
-<div class="box"><span>Julio Cesar AlcalÃ¡ Morales  - 2200</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2200</span></div>
-<div class="box"><span>Diego Isaac RodrÃ­guez Arizona - 2196</span></div>
-<div class="box"><span>Victor Aguilar - 2180</span></div>
-<div class="box"><span>Francisco Daniel Velazquez lopez  - 2150</span></div>
-<div class="box"><span>JosÃ© Antonio SaldÃ­var Plascencia - 2150</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2110</span></div>
-<div class="box"><span>Misael Maciel Macias - 2100</span></div>
-<div class="box"><span>Julio Cesar AlcalÃ¡ Morales  - 2100</span></div>
-<div class="box"><span>Carla Gomes  - 2100</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2100</span></div>
-<div class="box"><span>JosÃ© Antonio SaldÃ­var Plascencia - 2098</span></div>
-<div class="box"><span>Irving fernando palma montes  - 2075</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2060</span></div>
-<div class="box"><span>JOSE DANIEL PULIDO  - 2057</span></div>
-<div class="box"><span>Misael Maciel Macias - 2050</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2050</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2040</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 2030</span></div>
-<div class="box"><span>Nahum Ramirez  - 2025</span></div>
-<div class="box"><span>Esteban Gracias Cabrera  - 2024</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 2024</span></div>
-<div class="box"><span>JosÃ© Antonio SaldÃ­var Plascencia - 2015</span></div>
-<div class="box"><span>Luis Alberto Rocha MacÃ­as  - 2000</span></div>
-<div class="box"><span>Misael Maciel Macias - 2000</span></div>
-<div class="box"><span>Javier sainz - 2000</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 2000</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 1999</span></div>
-<div class="box"><span>Prasanth Sreepathi - 1997</span></div>
-<div class="box"><span>Francisco Daniel Velazquez lopez  - 1996</span></div>
-<div class="box"><span>JosÃ© Antonio SaldÃ­var Plascencia - 1987</span></div>
-<div class="box"><span>Misael Maciel Macias - 1980</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 1980</span></div>
-<div class="box"><span>Javier sainz - 1959</span></div>
-<div class="box"><span>Misael Maciel Macias - 1950</span></div>
-<div class="box"><span>Hector Navarrete  - 1900</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 1895</span></div>
-<div class="box"><span>Oscar Narciso  - 1871</span></div>
-<div class="box"><span>Javier sainz - 1850</span></div>
-<div class="box"><span>Luis Eduardo de la torre MartÃ­nez  - 1850</span></div>
-<div class="box"><span>Juan ramon estrada gonzalez - 1850</span></div>
-<div class="box"><span>Victor Sotomayor - 1842</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 1829</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 1824</span></div>
-<div class="box"><span>Francisco Daniel Velazquez lopez  - 1821</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 1815</span></div>
-<div class="box"><span>Luis Alberto Rocha MacÃ­as  - 1800</span></div>
-<div class="box"><span>JosÃ© Antonio SaldÃ­var Plascencia - 1800</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 1795</span></div>
-<div class="box"><span>Victor Aguilar - 1794</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 1780</span></div>
-<div class="box"><span>Luis Alberto Rocha MacÃ­as  - 1750</span></div>
-<div class="box"><span>Irving fernando palma montes  - 1734</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 1726</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 1725</span></div>
-<div class="box"><span>Luis Alberto Rocha MacÃ­as  - 1700</span></div>
-<div class="box"><span>Luis Alberto Rocha MacÃ­as  - 1700</span></div>
-<div class="box"><span>Carlos espinosa - 1700</span></div>
-<div class="box"><span>Alejandro ruiz aldana - 1700</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 1690</span></div>
-<div class="box"><span>HÃ©ctor Navarrete  - 1675</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 1670</span></div>
-<div class="box"><span>Marco Solis - 1652</span></div>
-<div class="box"><span>Javier marin  - 1650</span></div>
-<div class="box"><span>Luis Alberto Rocha MacÃ­as  - 1625</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 1606</span></div>
-<div class="box"><span>Luis Alberto Rocha MacÃ­as  - 1600</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 1599</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 1580</span></div>
-<div class="box"><span>Luis Alberto Rocha MacÃ­as  - 1550</span></div>
-<div class="box"><span>Juan ramon estrada gonzalez - 1550</span></div>
-<div class="box"><span>Pedro CÃ©sar JimÃ©nez arguelles - 1542</span></div>
-<div class="box"><span>Pedro CÃ©sar JimÃ©nez arguelles - 1536</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 1526</span></div>
-<div class="box"><span>Pedro CÃ©sar JimÃ©nez arguelles - 1521</span></div>
-<div class="box"><span>Francisco Daniel Velazquez lopez  - 1510</span></div>
-<div class="box"><span>Eduardo LÃ³pez rÃ­os  - 1510</span></div>
-<div class="box"><span>Luis Alberto Rocha MacÃ­as  - 1500</span></div>
-<div class="box"><span>HÃ©ctor  - 1500</span></div>
-<div class="box"><span>Javier sainz - 1500</span></div>
-<div class="box"><span>Pedro CÃ©sar JimÃ©nez arguelles - 1481</span></div>
-<div class="box"><span>Marco Solis - 1475</span></div>
-<div class="box"><span>Jorge Antonio partida - 1461</span></div>
-<div class="box"><span>JOSE DANIEL PULIDO  - 1457</span></div>
-<div class="box"><span>Luis Alberto Rocha MacÃ­as  - 1450</span></div>
-<div class="box"><span>Pedro CÃ©sar JimÃ©nez arguelles - 1423</span></div>
-<div class="box"><span>Pedro CÃ©sar JimÃ©nez arguelles - 1416</span></div>
-<div class="box"><span>Luis Alberto Rocha MacÃ­as  - 1400</span></div>
-<div class="box"><span>Hector Navarrete  - 1400</span></div>
-<div class="box"><span>HÃ©ctor Navarrete  - 1400</span></div>
-<div class="box"><span>Pedro CÃ©sar JimÃ©nez arguelles - 1386</span></div>
-<div class="box"><span>Eduardo Octavio GutiÃ©rrez Montiel  - 1373</span></div>
-<div class="box"><span>Marco Solis - 1366</span></div>
-<div class="box"><span>Marco Solis - 1351</span></div>
-<div class="box"><span>Pedro CÃ©sar JimÃ©nez arguelles - 1342</span></div>
-<div class="box"><span>David Jimenez Arias - 1325</span></div>
-<div class="box"><span>Omar Najera Pacheco - 1319</span></div>
-<div class="box"><span>Daniel  - 1260</span></div>
-<div class="box"><span>Francisco Daniel Velazquez lopez  - 1251</span></div>
-<div class="box"><span>Juan ramon estrada gonzalez - 1250</span></div>
-<div class="box"><span>HÃ©ctor Navarrete  - 1230</span></div>
-<div class="box"><span>Cristian Murillo Vargas - 1224</span></div>
-<div class="box"><span>Jeovani Mendez  - 1200</span></div>
-<div class="box"><span>Jeovani Mendez  - 1200</span></div>
-<div class="box"><span>Mario Alberto Villagrana Hernandez - 1184</span></div>
-<div class="box"><span>Marco Solis - 1175</span></div>
-<div class="box"><span>Hector Navarrete  - 1150</span></div>
-<div class="box"><span>Marco - 1146</span></div>
-<div class="box"><span>Marco Solis - 1123</span></div>
-<div class="box"><span>Francisco Daniel Velazquez lopez  - 1118</span></div>
-<div class="box"><span>Jeovani Mendez  - 1100</span></div>
-<div class="box"><span>Omar Najera Pacheco - 1068</span></div>
-<div class="box"><span>JOSE DANIEL PULIDO  - 1057</span></div>
-<div class="box"><span>HÃ©ctor Navarrete  - 1050</span></div>
-<div class="box"><span>Juan ramon estrada gonzalez - 1050</span></div>
-<div class="box"><span>Hector Navarrete  - 1025</span></div>
-<div class="box"><span>Jeovani Mendez  - 990</span></div>
-<div class="box"><span>Marco Solis - 964</span></div>
-<div class="box"><span>Marco Solis - 941</span></div>
-<div class="box"><span>Marco Solis - 893</span></div>
-<div class="box"><span>Leonardo millan - 890</span></div>
-<div class="box"><span>Pedro Arturo CiprÃ©s Villa - 835</span></div>
-<div class="box"><span>Marco - 834</span></div>
-<div class="box"><span>Javier GodÃ­nez SÃ¡nchez  - 800</span></div>
-<div class="box"><span>Israel valverde  - 780</span></div>
-<div class="box"><span>HÃ©ctor Navarrete  - 750</span></div>
-<div class="box"><span>Subash Muthu - 750</span></div>
-<div class="box"><span>Eduardo Octavio GutiÃ©rrez Montiel  - 718</span></div>
-<div class="box"><span>Eduardo Octavio GutiÃ©rrez Montiel  - 714</span></div>
-<div class="box"><span>Humberto Hernandez - 700</span></div>
-<div class="box"><span>Oscar narciso  - 678</span></div>
-<div class="box"><span>Javier Godinez Sanchez  - 620</span></div>
-<div class="box"><span>Marco Solis - 613</span></div>
-<div class="box"><span>Javier sainz - 600</span></div>
-<div class="box"><span>Marco - 588</span></div>
-<div class="box"><span>Marco Solis - 583</span></div>
-<div class="box"><span>Subash Muthu - 570</span></div>
-<div class="box"><span>HÃ©ctor Navarrete  - 560</span></div>
-<div class="box"><span>Javier GodÃ­nez SÃ¡nchez  - 550</span></div>
-<div class="box"><span>Pedro Arturo CiprÃ©s Villa - 521</span></div>
-<div class="box"><span>Subash Muthu - 520</span></div>
-<div class="box"><span>Javier Sainz - 500</span></div>
-<div class="box"><span>Javier GodÃ­nez SÃ¡nchez  - 460</span></div>
-<div class="box"><span>JOSE DANIEL PULIDO  - 457</span></div>
-<div class="box"><span>Javier Sainz - 450</span></div>
-<div class="box"><span>Leonardo millan - 450</span></div>
-<div class="box"><span>Pedro Arturo CiprÃ©s Villa - 434</span></div>
-<div class="box"><span>Javier Sainz - 400</span></div>
-<div class="box"><span>Marco Solis - 375</span></div>
-<div class="box"><span>Javier Sainz - 350</span></div>
-<div class="box"><span>Subash Muthu - 350</span></div>
-<div class="box"><span>Javier GodÃ­nez SÃ¡nchez  - 300</span></div>
-<div class="box"><span>Arun veerabathiran - 300</span></div>
-<div class="box"><span>Carlos espinosa - 300</span></div>
-<div class="box"><span>Arun veerabathiran - 250</span></div>
-<div class="box"><span>Pedro Arturo CiprÃ©s Villa - 223</span></div>
-<div class="box"><span>Andres - 156</span></div>
-<div class="box"><span>Alejandro de JesÃºs SÃ¡nchez Zaragoza  - 130</span></div>
-<div class="box"><span>Oscar narciso  - 69</span></div>
-<div class="box"><span>Ernesto Salazar Test - 21</span></div>
-<div class="box"><span>Ernesto Salazar Test - 11</span></div>
-<div class="box"><span>Luis Enrique Ochoa Soto  - 4</span></div>
-<div class="box"><span>Enrique Emmanuel DÃ­az Navarro - 3</span></div>
-<div class="box"><span>Enrique Emmanuel DÃ­az Navarro - 3</span></div>
-<div class="box"><span>Enrique Emmanuel DÃ­az Navarro - 3</span></div>
-<div class="box"><span>Juan Monroy  - 3</span></div>
-<div class="box"><span>Luisll - 2</span></div>
-<div class="box"><span>Christian Alexis Torres  - 1</span></div>
-
-
-                    <!-- Puedes agregar más participantes aquí -->
+                   <div class="box"><span>Jose CarlosJavier Garcia Montiel - 900</span></div>
+<div class="box"><span>José Carlos Javier García  - 950</span></div>
+<div class="box"><span>Omar Alejandro Navarrete García  - 1285</span></div>
+<div class="box"><span>Omar Alejandro Navarrete García  - 1455</span></div>
+<div class="box"><span>Carlos ArturoRobles Quintero - 1350</span></div>
+<div class="box"><span>Carlos ArturoRobles Quintero - 1245</span></div>
+<div class="box"><span>Carlos ArturoRobles Quintero - 1444</span></div>
+<div class="box"><span>Carlos ArturoRobles Quintero - 1185</span></div>
+<div class="box"><span>Gildardo Zamora  - 1300</span></div>
+<div class="box"><span>Gildardo Zamora  - 1800</span></div>
+<div class="box"><span>Gildardo Zamora  - 1960</span></div>
+<div class="box"><span>Paul curiel - 1200</span></div>
+<div class="box"><span>Servando Contreras barrios - 2000</span></div>
+<div class="box"><span>Adrian llamas - 1200</span></div>
+<div class="box"><span>Adrian llamas - 850</span></div>
+<div class="box"><span>Adrian llamas - 930</span></div>
+<div class="box"><span>Adrian llamas - 1400</span></div>
+<div class="box"><span>Alejandro Esquivel Cardenas  - 150</span></div>
+<div class="box"><span>Alejandro Esquivel Cardenas  - 500</span></div>
+<div class="box"><span>Alejandro Esquivel Cardenas  - 700</span></div>
+<div class="box"><span>David delgado - 760</span></div>
+<div class="box"><span>Joseph alberto hernandez rodriguez  - 723</span></div>
+<div class="box"><span>Gabriel López  - 3000</span></div>
+<div class="box"><span>Gabriel López  - 1500</span></div>
+<div class="box"><span>Eduardo Ramirez - 1728</span></div>
+<div class="box"><span>Mario cervantes  - 1200</span></div>
+<div class="box"><span>Mario cervantes  - 800</span></div>
+<div class="box"><span>Gabriel tejeda - 5129</span></div>
+<div class="box"><span>Gabriel tejeda - 5190</span></div>
+<div class="box"><span>Gabriel tejeda - 6058</span></div>
+<div class="box"><span>Gabriel tejeda - 4146</span></div>
+<div class="box"><span>Gabriel tejeda - 4629</span></div>
+<div class="box"><span>Ulises Iván gallardo hernandez  - 800</span></div>
+<div class="box"><span>Ulises Iván gallardo hernandez  - 850</span></div>
+<div class="box"><span>Daniel Abinadi Moncada Salgado  - 2943</span></div>
+<div class="box"><span>Brian Rodolfo Fonseca González  - 4837</span></div>
+<div class="box"><span>Aarón Villegas  - 975</span></div>
+<div class="box"><span>Aarón Villegas  - 11001</span></div>
+<div class="box"><span>Adrian Ãlvarez  - 1157</span></div>
+<div class="box"><span>Eduardo Barbosa Correa  - 1400</span></div>
+<div class="box"><span>Carlos Michel González Altamirano  - 1500</span></div>
+<div class="box"><span>Carlos Michel González Altamirano  - 2001</span></div>
+<div class="box"><span>Jesús Alfredo contreras granados  - 1250</span></div>
+<div class="box"><span>Ivan soto - 1500</span></div>
+<div class="box"><span>Alfredo García zaragoza - 847</span></div>
+<div class="box"><span>Alfredo García zaragoza - 907</span></div>
+<div class="box"><span>Alfredo García zaragoza - 947</span></div>
+<div class="box"><span>Carlos Osuna  - 1078</span></div>
+<div class="box"><span>Pedro Enrique Centeno Palacios  - 486</span></div>
+<div class="box"><span>Alfredo Cruz - 550</span></div>
+<div class="box"><span>Alfredo Cruz - 650</span></div>
+<div class="box"><span>Diego Rigoberto Miranda Arizola - 1084</span></div>
+<div class="box"><span>Diego Rigoberto Miranda Arizola - 1104</span></div>
+<div class="box"><span>Diego Rigoberto Miranda Arizola - 1120</span></div>
+<div class="box"><span>Diego Rigoberto Miranda Arizola - 750</span></div>
+<div class="box"><span>Alberto Gómez  - 2432</span></div>
+<div class="box"><span>Diego garza - 237</span></div>
+<div class="box"><span>Jua paul gutierrez inda - 1280</span></div>
+<div class="box"><span>Carlos Cazares  - 1080</span></div>
+<div class="box"><span>Juan Paul Gutiérrez Inda - 1100</span></div>
+<div class="box"><span>Juan Paul Gutiérrez Inda - 1050</span></div>
+<div class="box"><span>Juan Paul Gutiérrez Inda - 1150</span></div>
+<div class="box"><span>Juan Paul Gutiérrez Inda - 1200</span></div>
+<div class="box"><span>Juan Paul Gutiérrez Inda - 1100</span></div>
+<div class="box"><span>Juan paul gutierrez inda - 1998</span></div>
+<div class="box"><span>Juan paul gutierrez inda - 1780</span></div>
+<div class="box"><span>Juan paul gutierrez inda - 1800</span></div>
+<div class="box"><span>Juan paul gutierrez inda - 1250</span></div>
+<div class="box"><span>Juan paul gutierrez inda - 1888</span></div>
+<div class="box"><span>Sergio Manuel Nolazcos Rodriguez  - 2315</span></div>
+<div class="box"><span>Sergio Manuel Nolazcos Rodriguez  - 1380</span></div>
+<div class="box"><span>Sergio Manuel Nolazcos Rodriguez  - 1504</span></div>
+<div class="box"><span>Edgar Alejandro Lozano Ocampo - 1176</span></div>
+<div class="box"><span>Juan leonel sanchez fregozo  - 1320</span></div>
+<div class="box"><span>Juan leonel sanchez fregozo  - 1410</span></div>
+<div class="box"><span>Juan leonel sanchez fregozo  - 1390</span></div>
+<div class="box"><span>Juan leonel sanchez fregozo  - 1190</span></div>
+<div class="box"><span>Pedro Armendariz - 1865</span></div>
+<div class="box"><span>Carlos ortega - 1621</span></div>
+<div class="box"><span>Luis Alberto Díaz  - 1160</span></div>
+<div class="box"><span>Luis Alberto Díaz  - 380</span></div>
+<div class="box"><span>Siul Efraín Rentería Llamas  - 1758</span></div>
+<div class="box"><span>Eliesib Samaniego - 1000</span></div>
+<div class="box"><span>Eliesib Samaniego - 1050</span></div>
+<div class="box"><span>Eliesib Samaniego - 1100</span></div>
+<div class="box"><span>Eliesib Samaniego - 1150</span></div>
+<div class="box"><span>Eliesib Samaniego - 1200</span></div>
+<div class="box"><span>Eliesib Samaniego - 1250</span></div>
+<div class="box"><span>Eliesib Samaniego - 1350</span></div>
+<div class="box"><span>Eliesib Samaniego - 1300</span></div>
+<div class="box"><span>Eliesib - 1400</span></div>
+<div class="box"><span>Eliesib - 1450</span></div>
+<div class="box"><span>Eliesib - 1500</span></div>
+<div class="box"><span>Eliesib - 1550</span></div>
+<div class="box"><span>Jair Romero  - 875</span></div>
+<div class="box"><span>Edgar lozano - 900</span></div>
+<div class="box"><span>Hugo Orlando Martínez Reyes  - 1150</span></div>
+<div class="box"><span>Hugo Orlando Martínez Reyes  - 1000</span></div>
+<div class="box"><span>Hugo Orlando Martínez Reyes  - 550</span></div>
+<div class="box"><span>Edgar Lozano  - 850</span></div>
+<div class="box"><span>Rogelio ramos - 1600</span></div>
+<div class="box"><span>Rogelio ramos - 1700</span></div>
+<div class="box"><span>Rogelio ramos - 1800</span></div>
+<div class="box"><span>Rogelio ramos - 1650</span></div>
+<div class="box"><span>Rogelio ramos - 1850</span></div>
+<div class="box"><span>Rogelio ramos - 1680</span></div>
+<div class="box"><span>Rogelio ramos - 1690</span></div>
+<div class="box"><span>Rogelio ramos - 1670</span></div>
+<div class="box"><span>Rogelio ramos - 1675</span></div>
+<div class="box"><span>Luis Manuel garcia - 2000</span></div>
+<div class="box"><span>Luis Manuel garcia - 2200</span></div>
+<div class="box"><span>Luis Manuel garcia - 1800</span></div>
+<div class="box"><span>Luis Manuel garcia - 1600</span></div>
+<div class="box"><span>Luis Manuel garcia - 1350</span></div>
+<div class="box"><span>Luis Manuel garcia - 3000</span></div>
+<div class="box"><span>Luis Manuel garcia - 2300</span></div>
+<div class="box"><span>Luis Manuel garcia - 2600</span></div>
+<div class="box"><span>Luis Manuel garcia - 1900</span></div>
+<div class="box"><span>Luis Manuel garcia - 1000</span></div>
+<div class="box"><span>Luis Manuel garcia - 1200</span></div>
+<div class="box"><span>Luis Manuel garcia - 800</span></div>
+<div class="box"><span>Luis Manuel garcia - 900</span></div>
+<div class="box"><span>Luis Manuel garcia - 1500</span></div>
+<div class="box"><span>Luis Manuel garcia - 1400</span></div>
+<div class="box"><span>Luis Manuel garcia - 1300</span></div>
+<div class="box"><span>Raul flores  - 1100</span></div>
+<div class="box"><span>Javier Peres - 1450</span></div>
+<div class="box"><span>Javier Peres - 1358</span></div>
+<div class="box"><span>Javier Peres - 1250</span></div>
+<div class="box"><span>Javier Perea - 1210</span></div>
+<div class="box"><span>Javier Perea - 1410</span></div>
+<div class="box"><span>Javier Perea - 1320</span></div>
+<div class="box"><span>Javier Peres - 1296</span></div>
+<div class="box"><span>Javier Peres - 1222</span></div>
+<div class="box"><span>Javier Peres - 1285</span></div>
+<div class="box"><span>Javier Peres - 1315</span></div>
+<div class="box"><span>Horacio Soria - 200</span></div>
+<div class="box"><span>Horacio Soria - 400</span></div>
+<div class="box"><span>Rafael de Jesús Pérez olimon  - 1122</span></div>
+<div class="box"><span>Valeco - 1666</span></div>
+<div class="box"><span>Valentin Guzmán Murillo - 1188</span></div>
+<div class="box"><span>Jahir alejandro romano hernandez - 687</span></div>
+<div class="box"><span>Jesús isaac - 1300</span></div>
+<div class="box"><span>Alberto - 1900</span></div>
+<div class="box"><span>Victor ramirez  - 1050</span></div>
+<div class="box"><span>Victor ramirez  - 1200</span></div>
+<div class="box"><span>Jose manuel amaya - 1500</span></div>
+<div class="box"><span>Carlos alejandro Rodriguez rivera  - 1507</span></div>
+<div class="box"><span>Carlos alejandro Rodriguez rivera  - 1500</span></div>
+<div class="box"><span>Carlos alejandro Rodriguez rivera  - 1537</span></div>
+<div class="box"><span>Carlos alejandro Rodriguez rivera  - 1527</span></div>
+<div class="box"><span>Ariel Jiménez  - 9832</span></div>
+<div class="box"><span>Mario Gallegos - 1200</span></div>
+<div class="box"><span>Mario Gallegos - 1188</span></div>
+<div class="box"><span>Mario Gallegos - 1400</span></div>
+<div class="box"><span>José Ernesto Vargas alcaraz - 1080</span></div>
+<div class="box"><span>José Ernesto Vargas alcaraz - 1200</span></div>
+<div class="box"><span>José Ernesto Vargas alcaraz - 1110</span></div>
+<div class="box"><span>José Ernesto Vargas alcaraz - 1210</span></div>
+<div class="box"><span>José Ernesto Vargas alcaraz - 1000</span></div>
+<div class="box"><span>José Ernesto Vargas alcaraz - 1380</span></div>
+<div class="box"><span>José Ernesto Vargas alcaraz - 1500</span></div>
+<div class="box"><span>José Ernesto Vargas alcaraz - 1550</span></div>
+<div class="box"><span>José Ernesto Vargas alcaraz - 1450</span></div>
+<!-- Más participantes -->
                 </div>
             </div>
         </div>
 
-        <div class="winner hidden" id="winnerText">
+        <div id="participantsList2">
+            <h2><br></h2>
+            <div class="cinta2" id="cinta2">
+                <div class="scroll2">
+               <div class="box"><span>Gerardo David - 5</span></div>
+<div class="box"><span>Gerardo David - 4</span></div>
+<div class="box"><span>Gerardo David - 2</span></div>
+<div class="box"><span>Gerardo David - 6</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1000</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1008</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1016</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1024</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1032</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1040</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1048</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1056</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1064</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1072</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1080</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1088</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1096</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1104</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1100</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1105</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1110</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1115</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1120</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1125</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1130</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1135</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1140</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1145</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1150</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1155</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1160</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1165</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1170</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1180</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1190</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1200</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1205</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1210</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1215</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1220</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1225</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1230</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1235</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1240</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1245</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1250</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1255</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1260</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1265</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1270</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1275</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1280</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1285</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1290</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1295</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1300</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1305</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1310</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1315</span></div>
+<div class="box"><span>Alvaro Alexis Sandoval Rivas - 1320</span></div>
+<div class="box"><span>Eduardo Ibrahim Parra Cortes - 1296</span></div>
+<div class="box"><span>García  - 782</span></div>
+<div class="box"><span>Ricardo oceguera  - 1200</span></div>
+<div class="box"><span>Josafat  - 1280</span></div>
+<div class="box"><span>Hectir Roberto ramirez meza  - 1329</span></div>
+<div class="box"><span>Hectir Roberto ramirez meza  - 1029</span></div>
+<div class="box"><span>César Jiménez  - 1619</span></div>
+<div class="box"><span>Musuani Hernandez  - 1350</span></div>
+<div class="box"><span>Carlos Jiménez Haro - 1080</span></div>
+<div class="box"><span>Lizandro delgado  - 847</span></div>
+<div class="box"><span>Jhoan - 1406</span></div>
+<div class="box"><span>Alejandro - 650</span></div>
+<div class="box"><span>Roberto alcantar  - 1500</span></div>
+<div class="box"><span>Roberto alcantar  - 1510</span></div>
+<div class="box"><span>Roberto alcantar  - 1520</span></div>
+<div class="box"><span>Roberto alcantar  - 1540</span></div>
+<div class="box"><span>Roberto alcantar  - 1550</span></div>
+<div class="box"><span>Roberto Alcantar  - 1440</span></div>
+<div class="box"><span>Roberto Alcantar  - 1430</span></div>
+<div class="box"><span>Roberto Alcantar  - 1420</span></div>
+<div class="box"><span>Roberto Alcantar  - 1410</span></div>
+<div class="box"><span>Roberto alcantar - 1480</span></div>
+<div class="box"><span>Roberto alcantar - 1470</span></div>
+<div class="box"><span>Roberto alcantar - 1460</span></div>
+<div class="box"><span>Roberto alcantar - 1450</span></div>
+<div class="box"><span>Roberto Alcantar  - 1490</span></div>
+<div class="box"><span>Roberto Alcantar  - 1480</span></div>
+<div class="box"><span>Roberto alcantar - 1200</span></div>
+<div class="box"><span>Roberto Alcantar  - 1250</span></div>
+<div class="box"><span>Roberto Alcantar  - 1280</span></div>
+<div class="box"><span>Roberto Alcantar  - 1300</span></div>
+<div class="box"><span>Carlos  - 1355</span></div>
+<div class="box"><span>Roberto Baeza - 1450</span></div>
+<div class="box"><span>José Antonio Reyes  - 3670</span></div>
+<div class="box"><span>Armando Mendoza  - 570</span></div>
+<div class="box"><span>Emanuel estrada gonzalez - 1923</span></div>
+<div class="box"><span>Justino becerra flores  - 1300</span></div>
+<div class="box"><span>Alan humberto escobar  - 1800</span></div>
+<div class="box"><span>Luis Ãngel ibarra - 1420</span></div>
+<div class="box"><span>Chema - 950</span></div>
+<div class="box"><span>Ariel Jiménez  - 1223</span></div>
+<div class="box"><span>Eliesib  - 2000</span></div>
+<div class="box"><span>Eliesib  - 2050</span></div>
+<div class="box"><span>Alberto Andrade - 1123</span></div>
+<div class="box"><span>Alberto Andrade - 1250</span></div>
+<div class="box"><span>Alberto Andrade - 1260</span></div>
+<div class="box"><span>Alberto Andrade - 1300</span></div>
+<div class="box"><span>Alberto Andrade - 1350</span></div>
+<div class="box"><span>Alberto Andrade - 1400</span></div>
+<div class="box"><span>Alberto Andrade - 1450</span></div>
+<div class="box"><span>Alberto Andrade - 1500</span></div>
+<div class="box"><span>Alberto Andrade - 1550</span></div>
+<div class="box"><span>Alberto Andrade - 1600</span></div>
+<div class="box"><span>Alberto Andrade - 1650</span></div>
+<div class="box"><span>Alberto Andrade - 1700</span></div>
+<div class="box"><span>Alberto Andrade - 1189</span></div>
+<div class="box"><span>Diego Miranda  - 968</span></div>
+<div class="box"><span>Diego Miranda  - 1000</span></div>
+<div class="box"><span>Diego Miranda  - 1100</span></div>
+<div class="box"><span>Diego Miranda  - 1200</span></div>
+<div class="box"><span>Diego Miranda  - 990</span></div>
+<div class="box"><span>Carlos - 2000</span></div>
+<div class="box"><span>Carlos - 1500</span></div>
+<div class="box"><span>Carlos - 1300</span></div>
+<div class="box"><span>Carlos - 1400</span></div>
+<div class="box"><span>Guillermo Perez - 1323</span></div>
+<div class="box"><span>Yovanni Curiel  - 1500</span></div>
+<div class="box"><span>Yovanni Curiel  - 1750</span></div>
+<div class="box"><span>Yovanni Curiel  - 1650</span></div>
+<div class="box"><span>Yovanni Curiel  - 1400</span></div>
+<div class="box"><span>Yovanni Curiel  - 1130</span></div>
+<div class="box"><span>Yovanni Curiel  - 1810</span></div>
+<div class="box"><span>Andres Navarrete - 1652</span></div>
+<div class="box"><span>Andres Navarrete - 1489</span></div>
+<div class="box"><span>Yovanni Curiel  - 1860</span></div>
+<div class="box"><span>Yovanni Curiel  - 1570</span></div>
+<div class="box"><span>Yovanni Curiel  - 1440</span></div>
+<div class="box"><span>Yovanni Curiel  - 1300</span></div>
+<div class="box"><span>Yovanni Curiel  - 1900</span></div>
+<div class="box"><span>Yovanni Curiel  - 1188</span></div>
+<div class="box"><span>Yovanni Curiel  - 1220</span></div>
+<div class="box"><span>José Roque Carrillo Carrillo - 974</span></div>
+<div class="box"><span>Angel Ãguila  - 2125</span></div>
+<div class="box"><span>Scheneider Barron Martinez  - 1020</span></div>
+<div class="box"><span>Scheneider Barron Martinez  - 640</span></div>
+<div class="box"><span>Scheneider Barron Martinez  - 480</span></div>
+<div class="box"><span>Eric alexis - 1200</span></div>
+<div class="box"><span>Luis Daniel arciniega garcia - 1164</span></div>
+<div class="box"><span>Luis Daniel arciniega garcia - 1246</span></div>
+<div class="box"><span>Christian Jesus garcia - 96</span></div>
+<div class="box"><span>Alfredo garcia - 1300</span></div>
+<div class="box"><span>Luis Alberto Silvestre Silvestre  - 7102</span></div>
+<div class="box"><span>Luis Alberto Silvestre Silvestre  - 6834</span></div>
+<div class="box"><span>Scheneider Barron  - 979</span></div>
+<div class="box"><span>Scheneider Barron  - 1000</span></div>
+<div class="box"><span>Luis Armenta - 1240</span></div>
+<div class="box"><span>Luis Armenta - 2400</span></div>
+<div class="box"><span>Luis Armenta - 3800</span></div>
+<div class="box"><span>Antonio olivo - 2000</span></div>
+<div class="box"><span>Antonio olivo - 1000</span></div>
+<div class="box"><span>Eduardo velez - 3000</span></div>
+<div class="box"><span>Gael Franco - 700</span></div>
+<div class="box"><span>Gael Franco - 1116</span></div>
+<div class="box"><span>Gael Franco - 730</span></div>
+                    <!-- Más participantes -->
+                </div>
+            </div>
+        </div>
+
+        <div id="participantsList3">
+            <h2><br></h2>
+            <div class="cinta3" id="cinta3">
+                <div class="scroll">
+                   <div class="box"><span>Gael Franco - 780</span></div>
+<div class="box"><span>Gael Franco - 800</span></div>
+<div class="box"><span>Gael Franco - 840</span></div>
+<div class="box"><span>Gael Franco - 880</span></div>
+<div class="box"><span>Gael Franco - 900</span></div>
+<div class="box"><span>Gael Franco - 910</span></div>
+<div class="box"><span>Gael Franco - 920</span></div>
+<div class="box"><span>Gael Franco - 930</span></div>
+<div class="box"><span>Gael Franco - 940</span></div>
+<div class="box"><span>Gael Franco - 950</span></div>
+<div class="box"><span>Gael Franco - 1400</span></div>
+<div class="box"><span>Gael Franco - 970</span></div>
+<div class="box"><span>Gael Franco - 760</span></div>
+<div class="box"><span>Gael Franco - 1002</span></div>
+<div class="box"><span>Gael Franco - 965</span></div>
+<div class="box"><span>Gael Franco - 1130</span></div>
+<div class="box"><span>Gael Franco - 1200</span></div>
+<div class="box"><span>Gael Franco - 1150</span></div>
+<div class="box"><span>Gael Franco - 1100</span></div>
+<div class="box"><span>Gael Franco - 1000</span></div>
+<div class="box"><span>Gael Franco - 2200</span></div>
+<div class="box"><span>Gael Franco - 1700</span></div>
+<div class="box"><span>Gael Franco - 1111</span></div>
+<div class="box"><span>Jorge Antonio Gomez - 1450</span></div>
+<div class="box"><span>Angel galindo  - 1099</span></div>
+<div class="box"><span>Oscar David Ruiz Hernández  - 1100</span></div>
+<div class="box"><span>Javier Rocha - 900</span></div>
+<div class="box"><span>Javier Rocha - 990</span></div>
+<div class="box"><span>Javier Rocha - 1100</span></div>
+<div class="box"><span>Javier Rocha - 1000</span></div>
+<div class="box"><span>Javier Rocha - 980</span></div>
+<div class="box"><span>Javier Rocha - 1080</span></div>
+<div class="box"><span>Javier Rocha - 1140</span></div>
+<div class="box"><span>Javier Rocha - 999</span></div>
+<div class="box"><span>Jorge gonzales  - 1607</span></div>
+<div class="box"><span>Jorge gonzales  - 1414</span></div>
+<div class="box"><span>Jorge gonzales  - 914</span></div>
+<div class="box"><span>Jorge gonzales  - 1422</span></div>
+<div class="box"><span>Jorge gonzales  - 1814</span></div>
+<div class="box"><span>Jorge gonzales  - 808</span></div>
+<div class="box"><span>Jorge gonzales  - 1088</span></div>
+<div class="box"><span>Jorge gonzales  - 1002</span></div>
+<div class="box"><span>Francisco Zepeda Hernandez - 1100</span></div>
+<div class="box"><span>Francisco Zepeda Hernandez - 1000</span></div>
+<div class="box"><span>Francisco Zepeda Hernandez - 800</span></div>
+<div class="box"><span>Francisco Zepeda Hernandez - 850</span></div>
+<div class="box"><span>Francisco Zepeda Hernandez - 950</span></div>
+<div class="box"><span>Francisco Zepeda Hernandez - 880</span></div>
+<div class="box"><span>Francisco Zepeda Hernandez - 890</span></div>
+<div class="box"><span>Francisco Zepeda Hernandez - 7505</span></div>
+<div class="box"><span>Alberto Rodriguez - 1200</span></div>
+<div class="box"><span>Marcos zeferino - 1400</span></div>
+<div class="box"><span>Diego leon - 1000</span></div>
+<div class="box"><span>Jose hadrían haro velazquez  - 2000</span></div>
+<div class="box"><span>Jesús lara  - 500</span></div>
+<div class="box"><span>Jesús lara  - 600</span></div>
+<div class="box"><span>Jesús lara  - 400</span></div>
+<div class="box"><span>Ernesto de Jesús Alaniz  navarrete  - 1540</span></div>
+<div class="box"><span>Owen Marssel de la Cruz Noriega  - 1500</span></div>
+<div class="box"><span>Owen Marssel de la Cruz Noriega  - 2000</span></div>
+<div class="box"><span>Owen Marssel de la Cruz Noriega  - 1150</span></div>
+<div class="box"><span>Owen Marssel de la Cruz Noriega  - 1369</span></div>
+<div class="box"><span>Owen Marssel de la Cruz Noriega  - 1480</span></div>
+<div class="box"><span>Owen Marssel de la Cruz Noriega  - 2500</span></div>
+<div class="box"><span>Owen Marssel de la Cruz Noriega  - 1610</span></div>
+<div class="box"><span>Owen Marssel de la Cruz Noriega  - 950</span></div>
+<div class="box"><span>Manuel Martínez  - 1872</span></div>
+<div class="box"><span>Alfredo Enrique maravillas barriga  - 1250</span></div>
+<div class="box"><span>Alfredo Enrique maravillas barriga  - 1200</span></div>
+<div class="box"><span>Alfredo Enrique maravillas barriga  - 1180</span></div>
+<div class="box"><span>Edgar arreola - 1750</span></div>
+<div class="box"><span>Miguel orozco - 2000</span></div>
+<div class="box"><span>Jorge lopez - 900</span></div>
+<div class="box"><span>Alejandro  - 1080</span></div>
+<div class="box"><span>Alejandro  - 1300</span></div>
+<div class="box"><span>Alejandro  - 1200</span></div>
+<div class="box"><span>Alejandro  - 1500</span></div>
+<div class="box"><span>Alejandro  - 379</span></div>
+<div class="box"><span>Daniel Velez - 870</span></div>
+<div class="box"><span>Daniel Velez - 1300</span></div>
+<div class="box"><span>Daniel Velez - 980</span></div>
+<div class="box"><span>Daniel Velez - 1110</span></div>
+<div class="box"><span>Kevin Parra  - 523</span></div>
+<div class="box"><span>Guillermo perez  - 3400</span></div>
+<div class="box"><span>Ricardo verde  - 1320</span></div>
+<div class="box"><span>Paul Rodriguez  - 1521</span></div>
+<div class="box"><span>Omar Santiago Estrada Sandoval  - 710</span></div>
+<div class="box"><span>Omar Santiago Estrada Sandoval  - 810</span></div>
+<div class="box"><span>Francisco Estrada Llamas  - 1185</span></div>
+<div class="box"><span>Angel palafox - 3000</span></div>
+<div class="box"><span>Angel palafox - 670</span></div>
+<div class="box"><span>Eduardo Lopez Sanchez - 2372</span></div>
+<div class="box"><span>Eduardo Lopez Sanchez - 1751</span></div>
+<div class="box"><span>Eduardo Lopez Sanchez - 2109</span></div>
+<div class="box"><span>Eduardo Lopez Sanchez - 1231</span></div>
+<div class="box"><span>Raymundo Carbajal rodriguez - 2125</span></div>
+<div class="box"><span>Raymundo Carbajal rodriguez - 2880</span></div>
+<div class="box"><span>Jorge Arturo gutierrez - 1623</span></div>
+<div class="box"><span>Jorge Arturo gutierrez - 1355</span></div>
+<div class="box"><span>Irvin Garcia - 1800</span></div>
+<div class="box"><span>Irvin Garcia - 2500</span></div>
+<div class="box"><span>Irvin Garcia - 2300</span></div>
+<div class="box"><span>Jose Manriquez  - 1440</span></div>
+<div class="box"><span>Jose Manriquez  - 1357</span></div>
+<div class="box"><span>Jose Manriquez  - 1251</span></div>
+<div class="box"><span>Jose Manriquez  - 1421</span></div>
+<div class="box"><span>Daniel Mardueño  - 1327</span></div>
+<div class="box"><span>RAUL GUERRa romano - 9500</span></div>
+<div class="box"><span>RAUL GUERRa romano - 1600</span></div>
+<div class="box"><span>RAUL GUERRa romano - 11200</span></div>
+<div class="box"><span>Raul guerra romano - 7390</span></div>
+<div class="box"><span>Raulguerraromano - 1396</span></div>
+<div class="box"><span>Hector Manuel verdin cambero  - 9000</span></div>
+<div class="box"><span>Hector Manuel verdin cambero  - 7000</span></div>
+<div class="box"><span>Hector Manuel verdin cambero  - 980</span></div>
+<div class="box"><span>Herctor Manuel verdin cambero  - 1848</span></div>
+<div class="box"><span>Herctor Manuel verdin cambero  - 1200</span></div>
+<div class="box"><span>Jorge  - 5000</span></div>
+<div class="box"><span>Hector Manuel verdin cambero  - 1721</span></div>
+<div class="box"><span>Hector Manuel verdin cambero  - 7400</span></div>
+<div class="box"><span>Manuel Rodríguez  - 777</span></div>
+<div class="box"><span>Hector Manuel verdin cambero  - 3100</span></div>
+<div class="box"><span>Chema curiel - 802</span></div>
+<div class="box"><span>Chema curiel - 1357</span></div>
+<div class="box"><span>Chema curiel - 999</span></div>
+<div class="box"><span>Chema curiel - 1054</span></div>
+<div class="box"><span>Chema curiel - 1044</span></div>
+<div class="box"><span>Chema curiel - 981</span></div>
+<div class="box"><span>Chema curiel - 996</span></div>
+<div class="box"><span>Chema curiel - 964</span></div>
+<div class="box"><span>Chema curiel - 992</span></div>
+<div class="box"><span>Chema curiel - 750</span></div>
+<div class="box"><span>Chema curiel - 1216</span></div>
+<div class="box"><span>Chema curiel - 981</span></div>
+<div class="box"><span>Chema curiel - 983</span></div>
+<div class="box"><span>Chema curiel - 847</span></div>
+<div class="box"><span>Chema curiel - 1146</span></div>
+<div class="box"><span>Chema curiel - 888</span></div>
+<div class="box"><span>Alexis jaudiel  - 824</span></div>
+<div class="box"><span>Alexis jaudiel  - 840</span></div>
+<div class="box"><span>Alexis jaudiel  - 860</span></div>
+<div class="box"><span>Alexis jaudiel  - 1182</span></div>
+<div class="box"><span>Chema curiel  - 959</span></div>
+<div class="box"><span>Chema curiel  - 836</span></div>
+<div class="box"><span>Chema curiel  - 890</span></div>
+<div class="box"><span>Chema curiel  - 1208</span></div>
+<div class="box"><span>Ricardo Partida - 2350</span></div>
+<div class="box"><span>Roberto Jair Romero vazquez  - 1851</span></div>
+<div class="box"><span>Humberto pintor  - 1400</span></div>
+<div class="box"><span>Ricardo partida - 3000</span></div>
+<div class="box"><span>Ricardo partida - 1200</span></div>
+<div class="box"><span>José Manuel navarrete - 350</span></div>
+<div class="box"><span>José Manuel navarrete - 398</span></div>
+<div class="box"><span>José Manuel navarrete - 987</span></div>
+<div class="box"><span>Leonardo Daniel velez Rodriguez  - 2650</span></div>
+<div class="box"><span>Leonardo Daniel velez Rodriguez  - 1632</span></div>
+<div class="box"><span>José Manuel navarrete - 500</span></div>
+<div class="box"><span>José Manuel navarrete - 750</span></div>
+<div class="box"><span>José Manuel navarrete - 475</span></div>
+<div class="box"><span>José Manuel navarrete - 400</span></div>
+<div class="box"><span>José Manuel navarrete - 800</span></div>
+<div class="box"><span>José Manuel navarrete - 801</span></div>
+<div class="box"><span>Luis Eduardo Hernández Jiménez  - 19000</span></div>
+<div class="box"><span>Joel Martínez Hernández  - 2200</span></div>
+                    <!-- Más participantes -->
+                </div>
+            </div>
+        </div>
+
+         <div class="winner hidden" id="winnerText">
             
         </div>
         
@@ -870,743 +735,564 @@
     </div>
 
     <script>
+	function crearBillete() {
+        const billete = document.createElement("div");
+        billete.classList.add("billete");
+        billete.style.left = Math.random() * window.innerWidth + "px";
+        billete.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        billete.textContent = "$";
+        document.body.appendChild(billete);
+
+        // Eliminar el billete después de que caiga
+        billete.addEventListener("animationend", () => {
+            billete.remove();
+        });
+    }
+
+    // Crear billetes de manera continua
+    setInterval(crearBillete, 9000);
+   
         const participants = [
-                  { name: "Ruben Silva ", guess: 32150 },
-{ name: "JAVIER SAINZ", guess: 25000 },
-{ name: "Rafael Pereyra HernÃ¡ndez ", guess: 22537 },
-{ name: "Rafael Pereyra HernÃ¡ndez ", guess: 20327 },
-{ name: "Javier Sainz ", guess: 20000 },
-{ name: "Jaime Francisco ", guess: 17500 },
-{ name: "Edgar Escobar Herrera", guess: 17197 },
-{ name: "Edgar Escobar Herrera", guess: 16870 },
-{ name: "Daniel Mascorro GuzmÃ¡n ", guess: 16705 },
-{ name: "Josue", guess: 16500 },
-{ name: "Daniel Mascorro GuzmÃ¡n ", guess: 16000 },
-{ name: "Edgar Escobar Herrera", guess: 15648 },
-{ name: "Javier Sainz ", guess: 15000 },
-{ name: "Edgar Escobar Herrera", guess: 14876 },
-{ name: "Pablo Hernandez", guess: 14800 },
-{ name: "Edgar Escobar Herrera", guess: 14682 },
-{ name: "Pedro Arturo CiprÃ©s Villa", guess: 14640 },
-{ name: "Edgar Escobar Herrera", guess: 14457 },
-{ name: "Edgar Escobar Herrera", guess: 14209 },
-{ name: "Edgar Escobar Herrera", guess: 14003 },
-{ name: "Edgar Escobar Herrera", guess: 13888 },
-{ name: "Edgar Escobar Herrera", guess: 13655 },
-{ name: "Edgar Escobar Herrera", guess: 13523 },
-{ name: "Edgar Escobar Herrera", guess: 13409 },
-{ name: "Edgar Escobar Herrera", guess: 13231 },
-{ name: "Edgar Escobar Herrera", guess: 13199 },
-{ name: "Edgar Escobar Herrera", guess: 13087 },
-{ name: "Edgar Escobar Herrera", guess: 12941 },
-{ name: "Edgar Escobar Herrera", guess: 12866 },
-{ name: "Edgar Escobar Herrera", guess: 12723 },
-{ name: "Edgar Escobar Herrera", guess: 12651 },
-{ name: "Victor Aguilar", guess: 12648 },
-{ name: "Edgar Escobar Herrera", guess: 12555 },
-{ name: "Edgar Escobar Herrera", guess: 12494 },
-{ name: "Edgar Escobar Herrera", guess: 12352 },
-{ name: "Edgar Escobar Herrera", guess: 12213 },
-{ name: "Edgar Escobar Herrera", guess: 12105 },
-{ name: "Edgar Escobar Herrera", guess: 11907 },
-{ name: "Edgar Escobar Herrera", guess: 11833 },
-{ name: "Edgar Escobar Herrera", guess: 11777 },
-{ name: "Edgar Escobar Herrera", guess: 11666 },
-{ name: "Edgar Escobar Herrera", guess: 11540 },
-{ name: "Edgar Escobar Herrera", guess: 11423 },
-{ name: "Edgar Escobar Herrera", guess: 11341 },
-{ name: "Oscar Campos", guess: 11287 },
-{ name: "Edgar Escobar Herrera", guess: 11256 },
-{ name: "Edgar Escobar Herrera", guess: 11111 },
-{ name: "Edgar Escobar Herrera", guess: 11003 },
-{ name: "Edgar Escobar Herrera", guess: 10981 },
-{ name: "Pedro Arturo CiprÃ©s Villa", guess: 10834 },
-{ name: "Edgar Escobar Herrera", guess: 10697 },
-{ name: "Ãngel Fernando MartÃ­nez Vanegas ", guess: 10566 },
-{ name: "Jorge Eugenio GÃ³mez SÃ¡nchez ", guess: 10565 },
-{ name: "Oscar Campos", guess: 10322 },
-{ name: "Edgar Escobar Herrera", guess: 10277 },
-{ name: "David Jimenez Arias", guess: 10208 },
-{ name: "Victor Aguilar", guess: 9463 },
-{ name: "Jorge Eugenio GÃ³mez SÃ¡nchez ", guess: 9300 },
-{ name: "Pedro Arturo CiprÃ©s Villa", guess: 9239 },
-{ name: "Oscar Campos", guess: 9128 },
-{ name: "Oscar Campos", guess: 8628 },
-{ name: "Pedro Arturo CiprÃ©s Villa", guess: 8358 },
-{ name: "Edgar Escobar Herrera", guess: 8100 },
-{ name: "Edgar Escobar Herrera", guess: 8050 },
-{ name: "Abraham GarcÃ­a ", guess: 8000 },
-{ name: "Edgar Escobar Herrera", guess: 8000 },
-{ name: "Carlos Abraham GarcÃ­a Ortega ", guess: 8000 },
-{ name: "Edgar Escobar Herrera", guess: 7950 },
-{ name: "Edgar Escobar Herrera", guess: 7900 },
-{ name: "Edgar Escobar Herrera", guess: 7850 },
-{ name: "Jorge Eugenio GÃ³mez SÃ¡nchez ", guess: 7850 },
-{ name: "Edgar Escobar Herrera", guess: 7800 },
-{ name: "Edgar Escobar Herrera", guess: 7750 },
-{ name: "Edgar Escobar Herrera", guess: 7700 },
-{ name: "Pedro Arturo CiprÃ©s Villa", guess: 7691 },
-{ name: "Oscar Campos", guess: 7662 },
-{ name: "Edgar Escobar Herrera", guess: 7650 },
-{ name: "Edgar Escobar Herrera", guess: 7600 },
-{ name: "Edgar Escobar Herrera", guess: 7550 },
-{ name: "Kevin Navarro ", guess: 7534 },
-{ name: "Alfredo GarcÃ­a Delgado", guess: 7500 },
-{ name: "Edgar Escobar Herrera", guess: 7500 },
-{ name: "Humberto Ramirez Valenzuela ", guess: 7500 },
-{ name: "Edgar Escobar Herrera", guess: 7450 },
-{ name: "Edgar Escobar Herrera", guess: 7400 },
-{ name: "Edgar Escobar Herrera", guess: 7350 },
-{ name: "Alfredo GarcÃ­a Delgado", guess: 7305 },
-{ name: "Edgar Escobar Herrera", guess: 7300 },
-{ name: "Edgar Escobar Herrera", guess: 7250 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 7250 },
-{ name: "Edgar Escobar Herrera", guess: 7200 },
-{ name: "Edgar Escobar Herrera", guess: 7150 },
-{ name: "Edgar Escobar Herrera", guess: 7100 },
-{ name: "JesÃºs Eduardo Salazar Armenta", guess: 7080 },
-{ name: "Victor Aguilar", guess: 7078 },
-{ name: "Edgar Escobar Herrera", guess: 7050 },
-{ name: "Edgar Escobar Herrera", guess: 7000 },
-{ name: "Edgar Escobar Herrera", guess: 6950 },
-{ name: "Edgar Escobar Herrera", guess: 6900 },
-{ name: "Edgar Escobar Herrera", guess: 6850 },
-{ name: "Jorge Eugenio GÃ³mez SÃ¡nchez ", guess: 6850 },
-{ name: "Kevin Navarro ", guess: 6841 },
-{ name: "Edgar Escobar Herrera", guess: 6800 },
-{ name: "Edgar Escobar Herrera", guess: 6750 },
-{ name: "Edgar Escobar Herrera", guess: 6700 },
-{ name: "Simonetta", guess: 6695 },
-{ name: "Simonetta ", guess: 6695 },
-{ name: "Simonetta", guess: 6695 },
-{ name: "Rodrigo Benoni Real Tapia ", guess: 6666 },
-{ name: "Hector Miguel Ibarra Morales ", guess: 6666 },
-{ name: "Edgar Escobar Herrera", guess: 6650 },
-{ name: "Pedro Arturo CiprÃ©s Villa", guess: 6636 },
-{ name: "Edgar Escobar Herrera", guess: 6600 },
-{ name: "Edgar Escobar Herrera", guess: 6550 },
-{ name: "Eduardo Mendoza Castillo ", guess: 6500 },
-{ name: "Edgar Escobar Herrera", guess: 6500 },
-{ name: "german rios acosta", guess: 6500 },
-{ name: "Rafael HernÃ¡ndez Del Toro", guess: 6470 },
-{ name: "Rafael HernÃ¡ndez Del Toro", guess: 6470 },
-{ name: "Edgar Escobar Herrera", guess: 6450 },
-{ name: "Edgar Escobar Herrera", guess: 6400 },
-{ name: "Edgar Escobar Herrera", guess: 6350 },
-{ name: "Kevin Navarro ", guess: 6344 },
-{ name: "Edgar Escobar Herrera", guess: 6300 },
-{ name: "Edgar Escobar Herrera", guess: 6250 },
-{ name: "Edgar Escobar Herrera", guess: 6200 },
-{ name: "Rafael HernÃ¡ndez Del Toro", guess: 6200 },
-{ name: "moises Emmanuel Flores gonzalez ", guess: 6172 },
-{ name: "Edgar Escobar Herrera", guess: 6150 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 6144 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 6116 },
-{ name: "Edgar Escobar Herrera", guess: 6100 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 6088 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 6060 },
-{ name: "Edgar Escobar Herrera", guess: 6050 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 6032 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 6004 },
-{ name: "Gonzalo Enrique", guess: 6000 },
-{ name: "Edgar Escobar Herrera", guess: 6000 },
-{ name: "Rodrigo Benoni Real Tapia ", guess: 6000 },
-{ name: "Rafael HernÃ¡ndez Del Toro", guess: 6000 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 6000 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5976 },
-{ name: "Rafael HernÃ¡ndez Del Toro", guess: 5970 },
-{ name: "Rafael HernÃ¡ndez Del Toro", guess: 5970 },
-{ name: "Edgar Escobar Herrera", guess: 5950 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5948 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5920 },
-{ name: "Edgar Escobar Herrera", guess: 5900 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 5900 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5892 },
-{ name: "Pedro Arturo CiprÃ©s Villa", guess: 5875 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5864 },
-{ name: "Edgar Escobar Herrera", guess: 5850 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5836 },
-{ name: "Hector Miguel Ibarra Morales ", guess: 5820 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5808 },
-{ name: "Edgar Escobar Herrera", guess: 5800 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 5800 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5780 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5752 },
-{ name: "Edgar Escobar Herrera", guess: 5750 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5724 },
-{ name: "Alfredo GarcÃ­a Delgado", guess: 5703 },
-{ name: "Edgar Escobar Herrera", guess: 5700 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 5700 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5696 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5668 },
-{ name: "Edgar Escobar Herrera", guess: 5650 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5640 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5612 },
-{ name: "Edgar Escobar Herrera", guess: 5600 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 5600 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5584 },
-{ name: "Hector Miguel Ibarra Morales ", guess: 5580 },
-{ name: "Jorge Eugenio GÃ³mez SÃ¡nchez ", guess: 5565 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5556 },
-{ name: "Rodrigo Real Tapia ", guess: 5555 },
-{ name: "Rodrigo Benoni Real Tapia ", guess: 5555 },
-{ name: "Edgar Escobar Herrera", guess: 5550 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5528 },
-{ name: "Edgar Escobar Herrera", guess: 5500 },
-{ name: "Carlos espinosa", guess: 5500 },
-{ name: "Rafael HernÃ¡ndez Del Toro", guess: 5500 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5500 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 5500 },
-{ name: "Edgar Escobar Herrera", guess: 5450 },
-{ name: "Cris", guess: 5400 },
-{ name: "Carlos", guess: 5400 },
-{ name: "Edgar Escobar Herrera", guess: 5400 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 5400 },
-{ name: "Edgar Escobar Herrera", guess: 5350 },
-{ name: "Erik Giovanni Romo Macias", guess: 5310 },
-{ name: "Edgar Escobar Herrera", guess: 5300 },
-{ name: "Ãngel Fernando MartÃ­nez Vanegas ", guess: 5283 },
-{ name: "Edgar Escobar Herrera", guess: 5250 },
-{ name: "Erik Giovanni Romo Macias", guess: 5244 },
-{ name: "Edgar Escobar Herrera", guess: 5200 },
-{ name: "german rios acosta", guess: 5200 },
-{ name: "Hector Miguel Ibarra Morales ", guess: 5200 },
-{ name: "Edgar Escobar Herrera", guess: 5150 },
-{ name: "MoisÃ©s Emmanuel Flores GonzÃ¡lez ", guess: 5125 },
-{ name: "Edgar Escobar Herrera", guess: 5100 },
-{ name: "Edgar Escobar Herrera", guess: 5050 },
-{ name: "JesÃºs Villarreal ", guess: 5000 },
-{ name: "Javier Sainz ", guess: 5000 },
-{ name: "Edgar Escobar Herrera", guess: 5000 },
-{ name: "german rios acosta", guess: 5000 },
-{ name: "Martha Covarrubias ", guess: 5000 },
-{ name: "Edgar Escobar Herrera", guess: 4950 },
-{ name: "Pedro Arturo CiprÃ©s Villa", guess: 4945 },
-{ name: "Edgar Escobar Herrera", guess: 4900 },
-{ name: "german rios acosta", guess: 4900 },
-{ name: "Edgar Escobar Herrera", guess: 4850 },
-{ name: "Erik Giovanni Romo Macias", guess: 4825 },
-{ name: "Edgar Escobar Herrera", guess: 4800 },
-{ name: "german rios acosta", guess: 4800 },
-{ name: "Eduardo Chavez", guess: 4800 },
-{ name: "Hector Miguel Ibarra Morales ", guess: 4800 },
-{ name: "Edgar Escobar Herrera", guess: 4750 },
-{ name: "Alfredo nieto", guess: 4740 },
-{ name: "Saul Vazquez mora", guess: 4730 },
-{ name: "Edgar Escobar Herrera", guess: 4700 },
-{ name: "german rios acosta", guess: 4700 },
-{ name: "Carlos espinosa", guess: 4700 },
-{ name: "Kevin Navarro ", guess: 4700 },
-{ name: "Erik Giovanni Romo MacÃ­as", guess: 4692 },
-{ name: "Edgar Escobar Herrera", guess: 4650 },
-{ name: "Hector Miguel Ibarra Morales ", guess: 4650 },
-{ name: "Edgar Escobar Herrera", guess: 4600 },
-{ name: "german rios acosta", guess: 4600 },
-{ name: "Martha Covarrubias ", guess: 4600 },
-{ name: "Erik Giovanni Romo Macias", guess: 4578 },
-{ name: "Edgar Escobar Herrera", guess: 4550 },
-{ name: "Pedro Arturo CiprÃ©s Villa", guess: 4539 },
-{ name: "Alfredo nieto", guess: 4530 },
-{ name: "Javier Marin", guess: 4500 },
-{ name: "Saul Vazquez mora", guess: 4500 },
-{ name: "Edgar Escobar Herrera", guess: 4500 },
-{ name: "german rios acosta", guess: 4500 },
-{ name: "Edgar Escobar Herrera", guess: 4450 },
-{ name: "Carlos espinosa", guess: 4421 },
-{ name: "Edgar Escobar Herrera", guess: 4400 },
-{ name: "german rios acosta", guess: 4400 },
-{ name: "Hector Miguel Ibarra Morales ", guess: 4400 },
-{ name: "Edgar Escobar Herrera", guess: 4350 },
-{ name: "Victor Aguilar", guess: 4308 },
-{ name: "Edgar Escobar Herrera", guess: 4300 },
-{ name: "german rios acosta", guess: 4300 },
-{ name: "Carlos espinosa", guess: 4300 },
-{ name: "Orlando arias ", guess: 4270 },
-{ name: "Edgar Escobar Herrera", guess: 4250 },
-{ name: "Cristian Murillo Vargas", guess: 4224 },
-{ name: "omar rodriguez torres", guess: 4200 },
-{ name: "Edgar Escobar Herrera", guess: 4200 },
-{ name: "german rios acosta", guess: 4200 },
-{ name: "Carlos espinosa", guess: 4200 },
-{ name: "Victor Aguilar", guess: 4181 },
-{ name: "Hector Miguel Ibarra Morales ", guess: 4153 },
-{ name: "Edgar Escobar Herrera", guess: 4150 },
-{ name: "Alfredo nieto", guess: 4100 },
-{ name: "Edgar Escobar Herrera", guess: 4100 },
-{ name: "german rios acosta", guess: 4100 },
-{ name: "Carlos espinosa", guess: 4100 },
-{ name: "Edgar Escobar Herrera", guess: 4050 },
-{ name: "Ruben Silva ", guess: 4000 },
-{ name: "Edgar Escobar Herrera", guess: 4000 },
-{ name: "german rios acosta", guess: 4000 },
-{ name: "Oscar Campos", guess: 4000 },
-{ name: "Carlos espinosa", guess: 4000 },
-{ name: "Marcos Fernando Cedillo de la Vega", guess: 3956 },
-{ name: "Edgar Escobar Herrera", guess: 3950 },
-{ name: "Cristian Murillo Vargas", guess: 3926 },
-{ name: "Pedro Arturo CiprÃ©s Villa", guess: 3907 },
-{ name: "Alfredo nieto", guess: 3900 },
-{ name: "Javier marin ", guess: 3900 },
-{ name: "omar rodriguez torres", guess: 3900 },
-{ name: "Edgar Escobar Herrera", guess: 3900 },
-{ name: "german rios acosta", guess: 3900 },
-{ name: "Carlos espinosa", guess: 3900 },
-{ name: "Hector Miguel Ibarra Morales ", guess: 3900 },
-{ name: "Orlando arias ", guess: 3890 },
-{ name: "Misael Maciel Macias ", guess: 3850 },
-{ name: "Edgar Escobar Herrera", guess: 3850 },
-{ name: "Orlando arias", guess: 3850 },
-{ name: "Misael Maciel Macias ", guess: 3820 },
-{ name: "Misael Maciel Macias ", guess: 3802 },
-{ name: "Emmanuel eduardo herrera gutierrez ", guess: 3800 },
-{ name: "omar rodriguez torres", guess: 3800 },
-{ name: "Edgar Escobar Herrera", guess: 3800 },
-{ name: "german rios acosta", guess: 3800 },
-{ name: "Carlos espinosa", guess: 3800 },
-{ name: "Juan ramon estrada gonzalez", guess: 3800 },
-{ name: "Edgar Escobar Herrera", guess: 3750 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 3750 },
-{ name: "Misael Maciel Macias", guess: 3745 },
-{ name: "Cristian Murillo Vargas", guess: 3724 },
-{ name: "Giovanni cataneo ", guess: 3720 },
-{ name: "Misael Maciel Macias", guess: 3710 },
-{ name: "Saul Vazquez mora", guess: 3700 },
-{ name: "omar rodriguez torres", guess: 3700 },
-{ name: "Edgar Escobar Herrera", guess: 3700 },
-{ name: "german rios acosta", guess: 3700 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 3700 },
-{ name: "Misael Maciel Macias", guess: 3689 },
-{ name: "Kevin Navarro ", guess: 3668 },
-{ name: "Martin Guerrero ", guess: 3650 },
-{ name: "Edgar Escobar Herrera", guess: 3650 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 3650 },
-{ name: "Cristian Murillo Vargas", guess: 3624 },
-{ name: "Misael Maciel Macias", guess: 3620 },
-{ name: "Misael Maciel Macias", guess: 3615 },
-{ name: "Saul Vazquez mora", guess: 3600 },
-{ name: "Edgar Escobar Herrera", guess: 3600 },
-{ name: "german rios acosta", guess: 3600 },
-{ name: "Hector Miguel Ibarra Morales ", guess: 3600 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 3600 },
-{ name: "Marcos Fernando Cedillo de la Vega", guess: 3579 },
-{ name: "Cristian Murillo Vargas", guess: 3569 },
-{ name: "Edgar Escobar Herrera", guess: 3550 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 3550 },
-{ name: "Cristian Murillo Vargas", guess: 3524 },
-{ name: "Marcos Fernando Cedillo de la Vega", guess: 3519 },
-{ name: "Marcos Fernando Cedillo de la Vega", guess: 3519 },
-{ name: "Juan ramon estrada gonzalez", guess: 3507 },
-{ name: "Cristian Murillo Vargas", guess: 3506 },
-{ name: "Cristian Murillo Vargas", guess: 3504 },
-{ name: "Misael Maciel Macias ", guess: 3501 },
-{ name: "Francisco Javier GuzmÃ¡n Angulo", guess: 3500 },
-{ name: "omar rodriguez torres", guess: 3500 },
-{ name: "Javier Sainz ", guess: 3500 },
-{ name: "Cesar oseguera", guess: 3500 },
-{ name: "Edgar Escobar Herrera", guess: 3500 },
-{ name: "german rios acosta", guess: 3500 },
-{ name: "Oscar Campos", guess: 3500 },
-{ name: "Martha Covarrubias ", guess: 3500 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 3500 },
-{ name: "Martin Guerrero ", guess: 3485 },
-{ name: "Hector Miguel Ibarra Morales ", guess: 3458 },
-{ name: "Cesar oseguera", guess: 3450 },
-{ name: "Esteban GarcÃ­a Cabrera ", guess: 3450 },
-{ name: "Edgar Escobar Herrera", guess: 3450 },
-{ name: "Cristian Murillo Vargas", guess: 3426 },
-{ name: "Misael Maciel Macias ", guess: 3400 },
-{ name: "Esteban GarcÃ­a Cabrera ", guess: 3400 },
-{ name: "Edgar Escobar Herrera", guess: 3400 },
-{ name: "german rios acosta", guess: 3400 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 3400 },
-{ name: "Misael Maciel Macias ", guess: 3350 },
-{ name: "Edgar Escobar Herrera", guess: 3350 },
-{ name: "Martin Guerrero ", guess: 3333 },
-{ name: "Giovanni cataneo ", guess: 3333 },
-{ name: "Cristian Murillo Vargas", guess: 3329 },
-{ name: "Esteban GarcÃ­a Cabrera ", guess: 3300 },
-{ name: "Edgar Escobar Herrera", guess: 3300 },
-{ name: "german rios acosta", guess: 3300 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 3300 },
-{ name: "Miguel Plascencia ", guess: 3289 },
-{ name: "Miguel Plascencia ", guess: 3282 },
-{ name: "Edgar Escobar Herrera", guess: 3250 },
-{ name: "Cristian Murillo Vargas", guess: 3246 },
-{ name: "Miguel Plascencia ", guess: 3219 },
-{ name: "Francisco Alcaraz", guess: 3218 },
-{ name: "David Jimenez Arias", guess: 3215 },
-{ name: "Ruben Silva ", guess: 3200 },
-{ name: "Francisco Javier GuzmÃ¡n Angulo", guess: 3200 },
-{ name: "Edgar Escobar Herrera", guess: 3200 },
-{ name: "Juan ramon estrada gonzalez", guess: 3200 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 3200 },
-{ name: "Nahum Ramirez ", guess: 3180 },
-{ name: "Cristian Murillo Vargas", guess: 3169 },
-{ name: "Victor Aguilar", guess: 3165 },
-{ name: "Edgar Escobar Herrera", guess: 3150 },
-{ name: "Miguel Plascencia ", guess: 3119 },
-{ name: "Francisco Alcaraz", guess: 3106 },
-{ name: "Edgar Escobar Herrera", guess: 3100 },
-{ name: "Juan ramon estrada gonzalez", guess: 3100 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 3100 },
-{ name: "Giovanni cataneo ", guess: 3095 },
-{ name: "JosÃ© Antonio SaldÃ­var Plascencia", guess: 3090 },
-{ name: "Cristian Murillo Vargas", guess: 3056 },
-{ name: "Edgar Escobar Herrera", guess: 3050 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 3050 },
-{ name: "Francisco Alcaraz", guess: 3017 },
-{ name: "Javier marin ", guess: 3000 },
-{ name: "JesÃºs Villarreal ", guess: 3000 },
-{ name: "omar rodriguez torres", guess: 3000 },
-{ name: "Julio Cesar AlcalÃ¡ Morales ", guess: 3000 },
-{ name: "Edgar Escobar Herrera", guess: 3000 },
-{ name: "Francisco Alcaraz", guess: 3000 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 3000 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 3000 },
-{ name: "Cristian Murillo Vargas", guess: 2969 },
-{ name: "Julio Cesar AlcalÃ¡ Morales ", guess: 2960 },
-{ name: "Cristian Murillo Vargas", guess: 2953 },
-{ name: "JosÃ© MartÃ­n ", guess: 2950 },
-{ name: "Julio Cesar AlcalÃ¡ Morales ", guess: 2950 },
-{ name: "Edgar Escobar Herrera", guess: 2950 },
-{ name: "Francisco Alcaraz", guess: 2950 },
-{ name: "Marcos Fernando Cedillo de la Vega", guess: 2919 },
-{ name: "Esteban GarcÃ­a Cabrera ", guess: 2903 },
-{ name: "JosÃ© Antonio SaldÃ­var Plascencia", guess: 2901 },
-{ name: "Julio Cesar AlcalÃ¡ Morales ", guess: 2900 },
-{ name: "Edgar Escobar Herrera", guess: 2900 },
-{ name: "Carlos espinosa", guess: 2900 },
-{ name: "Martha covarrubias", guess: 2900 },
-{ name: "Francisco Alcaraz", guess: 2900 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2900 },
-{ name: "Francisco Alcaraz", guess: 2896 },
-{ name: "Julio Cesar AlcalÃ¡ Morales ", guess: 2890 },
-{ name: "Cristian Murillo Vargas", guess: 2890 },
-{ name: "Giovanni cataneo ", guess: 2876 },
-{ name: "Cristian Murillo Vargas", guess: 2863 },
-{ name: "Edgar Escobar Herrera", guess: 2850 },
-{ name: "Francisco Alcaraz", guess: 2850 },
-{ name: "Juan Pablo GarduÃ±o Calderon", guess: 2800 },
-{ name: "Julio Cesar AlcalÃ¡ Morales ", guess: 2800 },
-{ name: "Edgar Escobar Herrera", guess: 2800 },
-{ name: "Juan ramon estrada gonzalez", guess: 2800 },
-{ name: "Francisco Alcaraz", guess: 2800 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2800 },
-{ name: "Cristian Murillo Vargas", guess: 2783 },
-{ name: "Julio Cesar AlcalÃ¡ Morales ", guess: 2780 },
-{ name: "Marcos Fernando Cedillo de la Vega", guess: 2769 },
-{ name: "Cristian Murillo Vargas", guess: 2752 },
-{ name: "Edgar Escobar Herrera", guess: 2750 },
-{ name: "Cristian Murillo Vargas", guess: 2748 },
-{ name: "JosÃ© Antonio SaldÃ­var Plascencia", guess: 2745 },
-{ name: "Armando becerra flores ", guess: 2705 },
-{ name: "Julio Cesar AlcalÃ¡ Morales ", guess: 2700 },
-{ name: "Edgar Escobar Herrera", guess: 2700 },
-{ name: "Cristian Murillo Vargas", guess: 2659 },
-{ name: "Edgar Escobar Herrera", guess: 2650 },
-{ name: "Cristian Murillo Vargas", guess: 2624 },
-{ name: "Edgardo Reyes GarcÃ­a ", guess: 2617 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2615 },
-{ name: "Juan Pablo GarduÃ±o Calderon", guess: 2600 },
-{ name: "Julio Cesar AlcalÃ¡ Morales ", guess: 2600 },
-{ name: "Edgar Escobar Herrera", guess: 2600 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2599 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2590 },
-{ name: "Javier marin ", guess: 2580 },
-{ name: "Brian Amador", guess: 2569 },
-{ name: "JosÃ© Antonio SaldÃ­var Plascencia", guess: 2565 },
-{ name: "Edgar Escobar Herrera", guess: 2550 },
-{ name: "Nahum Ramirez ", guess: 2550 },
-{ name: "Cristian Murillo Vargas", guess: 2524 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2520 },
-{ name: "Pedro Arturo CiprÃ©s Villa", guess: 2519 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2515 },
-{ name: "Alfonso de alba", guess: 2502 },
-{ name: "Alfonso de alba", guess: 2501 },
-{ name: "Hector Navarrete ", guess: 2500 },
-{ name: "Julio Cesar AlcalÃ¡ Morales ", guess: 2500 },
-{ name: "Edgar Escobar Herrera", guess: 2500 },
-{ name: "Victor Sotomayor", guess: 2500 },
-{ name: "Carlos espinosa", guess: 2500 },
-{ name: "Alfonso de alba", guess: 2500 },
-{ name: "Juan ramon estrada gonzalez", guess: 2500 },
-{ name: "Alfonso de alba", guess: 2499 },
-{ name: "Alfonso de alba", guess: 2498 },
-{ name: "Alfonso de alba", guess: 2497 },
-{ name: "Irving fernando palma montes ", guess: 2496 },
-{ name: "Alfonso de alba", guess: 2496 },
-{ name: "Alfonso de alba", guess: 2495 },
-{ name: "Alfonso de alba", guess: 2492 },
-{ name: "Cristian Murillo Vargas", guess: 2491 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2480 },
-{ name: "Javier sainz", guess: 2475 },
-{ name: "Francisco Alcaraz", guess: 2459 },
-{ name: "Rafael Pereyra HernÃ¡ndez ", guess: 2457 },
-{ name: "Diego Isaac RodrÃ­guez Arizona", guess: 2456 },
-{ name: "Esteban GarcÃ­a Cabrera ", guess: 2450 },
-{ name: "Edgar Escobar Herrera", guess: 2450 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2450 },
-{ name: "JesÃºs MarÃ­n GarcÃ­a ", guess: 2440 },
-{ name: "Rafael Pereyra HernÃ¡ndez ", guess: 2437 },
-{ name: "Brian Amador", guess: 2423 },
-{ name: "Nahum Ramirez ", guess: 2422 },
-{ name: "Giovanni cataneo ", guess: 2420 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2415 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2415 },
-{ name: "Juan Pablo GarduÃ±o Calderon", guess: 2400 },
-{ name: "JesÃºs MarÃ­n GarcÃ­a ", guess: 2400 },
-{ name: "Julio Cesar AlcalÃ¡ Morales ", guess: 2400 },
-{ name: "Esteban GarcÃ­a Cabrera ", guess: 2400 },
-{ name: "Edgar Escobar Herrera", guess: 2400 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2400 },
-{ name: "Diego Isaac RodrÃ­guez Arizona", guess: 2388 },
-{ name: "Francisco Alcaraz", guess: 2367 },
-{ name: "Hector Navarrete ", guess: 2350 },
-{ name: "Javier sainz", guess: 2335 },
-{ name: "Prasanth Sreepathi", guess: 2320 },
-{ name: "Prasanth Sreepathi", guess: 2320 },
-{ name: "Arya Gupta", guess: 2320 },
-{ name: "Arya Gupta", guess: 2320 },
-{ name: "Brian Amador", guess: 2315 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2315 },
-{ name: "Jahat Lindoro", guess: 2307 },
-{ name: "Julio Cesar AlcalÃ¡ Morales ", guess: 2300 },
-{ name: "Esteban GarcÃ­a Cabrera", guess: 2300 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2300 },
-{ name: "JosÃ© Antonio SaldÃ­var Plascencia", guess: 2295 },
-{ name: "Luis Eduardo de la torre MartÃ­nez ", guess: 2230 },
-{ name: "Cristian Murillo Vargas", guess: 2226 },
-{ name: "Miguel Ãngel Varela maldonado", guess: 2220 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2210 },
-{ name: "Diego Isaac RodrÃ­guez Arizona", guess: 2208 },
-{ name: "Julio Cesar AlcalÃ¡ Morales ", guess: 2200 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2200 },
-{ name: "Diego Isaac RodrÃ­guez Arizona", guess: 2196 },
-{ name: "Victor Aguilar", guess: 2180 },
-{ name: "Francisco Daniel Velazquez lopez ", guess: 2150 },
-{ name: "JosÃ© Antonio SaldÃ­var Plascencia", guess: 2150 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2110 },
-{ name: "Misael Maciel Macias", guess: 2100 },
-{ name: "Julio Cesar AlcalÃ¡ Morales ", guess: 2100 },
-{ name: "Carla Gomes ", guess: 2100 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2100 },
-{ name: "JosÃ© Antonio SaldÃ­var Plascencia", guess: 2098 },
-{ name: "Irving fernando palma montes ", guess: 2075 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2060 },
-{ name: "JOSE DANIEL PULIDO ", guess: 2057 },
-{ name: "Misael Maciel Macias", guess: 2050 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2050 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2040 },
-{ name: "Cristian Murillo Vargas", guess: 2030 },
-{ name: "Nahum Ramirez ", guess: 2025 },
-{ name: "Esteban Gracias Cabrera ", guess: 2024 },
-{ name: "Cristian Murillo Vargas", guess: 2024 },
-{ name: "JosÃ© Antonio SaldÃ­var Plascencia", guess: 2015 },
-{ name: "Luis Alberto Rocha MacÃ­as ", guess: 2000 },
-{ name: "Misael Maciel Macias", guess: 2000 },
-{ name: "Javier sainz", guess: 2000 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 2000 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 1999 },
-{ name: "Prasanth Sreepathi", guess: 1997 },
-{ name: "Francisco Daniel Velazquez lopez ", guess: 1996 },
-{ name: "JosÃ© Antonio SaldÃ­var Plascencia", guess: 1987 },
-{ name: "Misael Maciel Macias", guess: 1980 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 1980 },
-{ name: "Javier sainz", guess: 1959 },
-{ name: "Misael Maciel Macias", guess: 1950 },
-{ name: "Hector Navarrete ", guess: 1900 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 1895 },
-{ name: "Oscar Narciso ", guess: 1871 },
-{ name: "Javier sainz", guess: 1850 },
-{ name: "Luis Eduardo de la torre MartÃ­nez ", guess: 1850 },
-{ name: "Juan ramon estrada gonzalez", guess: 1850 },
-{ name: "Victor Sotomayor", guess: 1842 },
-{ name: "Cristian Murillo Vargas", guess: 1829 },
-{ name: "Cristian Murillo Vargas", guess: 1824 },
-{ name: "Francisco Daniel Velazquez lopez ", guess: 1821 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 1815 },
-{ name: "Luis Alberto Rocha MacÃ­as ", guess: 1800 },
-{ name: "JosÃ© Antonio SaldÃ­var Plascencia", guess: 1800 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 1795 },
-{ name: "Victor Aguilar", guess: 1794 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 1780 },
-{ name: "Luis Alberto Rocha MacÃ­as ", guess: 1750 },
-{ name: "Irving fernando palma montes ", guess: 1734 },
-{ name: "Cristian Murillo Vargas", guess: 1726 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 1725 },
-{ name: "Luis Alberto Rocha MacÃ­as ", guess: 1700 },
-{ name: "Luis Alberto Rocha MacÃ­as ", guess: 1700 },
-{ name: "Carlos espinosa", guess: 1700 },
-{ name: "Alejandro ruiz aldana", guess: 1700 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 1690 },
-{ name: "HÃ©ctor Navarrete ", guess: 1675 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 1670 },
-{ name: "Marco Solis", guess: 1652 },
-{ name: "Javier marin ", guess: 1650 },
-{ name: "Luis Alberto Rocha MacÃ­as ", guess: 1625 },
-{ name: "Cristian Murillo Vargas", guess: 1606 },
-{ name: "Luis Alberto Rocha MacÃ­as ", guess: 1600 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 1599 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 1580 },
-{ name: "Luis Alberto Rocha MacÃ­as ", guess: 1550 },
-{ name: "Juan ramon estrada gonzalez", guess: 1550 },
-{ name: "Pedro CÃ©sar JimÃ©nez arguelles", guess: 1542 },
-{ name: "Pedro CÃ©sar JimÃ©nez arguelles", guess: 1536 },
-{ name: "Cristian Murillo Vargas", guess: 1526 },
-{ name: "Pedro CÃ©sar JimÃ©nez arguelles", guess: 1521 },
-{ name: "Francisco Daniel Velazquez lopez ", guess: 1510 },
-{ name: "Eduardo LÃ³pez rÃ­os ", guess: 1510 },
-{ name: "Luis Alberto Rocha MacÃ­as ", guess: 1500 },
-{ name: "HÃ©ctor ", guess: 1500 },
-{ name: "Javier sainz", guess: 1500 },
-{ name: "Pedro CÃ©sar JimÃ©nez arguelles", guess: 1481 },
-{ name: "Marco Solis", guess: 1475 },
-{ name: "Jorge Antonio partida", guess: 1461 },
-{ name: "JOSE DANIEL PULIDO ", guess: 1457 },
-{ name: "Luis Alberto Rocha MacÃ­as ", guess: 1450 },
-{ name: "Pedro CÃ©sar JimÃ©nez arguelles", guess: 1423 },
-{ name: "Pedro CÃ©sar JimÃ©nez arguelles", guess: 1416 },
-{ name: "Luis Alberto Rocha MacÃ­as ", guess: 1400 },
-{ name: "Hector Navarrete ", guess: 1400 },
-{ name: "HÃ©ctor Navarrete ", guess: 1400 },
-{ name: "Pedro CÃ©sar JimÃ©nez arguelles", guess: 1386 },
-{ name: "Eduardo Octavio GutiÃ©rrez Montiel ", guess: 1373 },
-{ name: "Marco Solis", guess: 1366 },
-{ name: "Marco Solis", guess: 1351 },
-{ name: "Pedro CÃ©sar JimÃ©nez arguelles", guess: 1342 },
-{ name: "David Jimenez Arias", guess: 1325 },
-{ name: "Omar Najera Pacheco", guess: 1319 },
-{ name: "Daniel ", guess: 1260 },
-{ name: "Francisco Daniel Velazquez lopez ", guess: 1251 },
-{ name: "Juan ramon estrada gonzalez", guess: 1250 },
-{ name: "HÃ©ctor Navarrete ", guess: 1230 },
-{ name: "Cristian Murillo Vargas", guess: 1224 },
-{ name: "Jeovani Mendez ", guess: 1200 },
-{ name: "Jeovani Mendez ", guess: 1200 },
-{ name: "Mario Alberto Villagrana Hernandez", guess: 1184 },
-{ name: "Marco Solis", guess: 1175 },
-{ name: "Hector Navarrete ", guess: 1150 },
-{ name: "Marco", guess: 1146 },
-{ name: "Marco Solis", guess: 1123 },
-{ name: "Francisco Daniel Velazquez lopez ", guess: 1118 },
-{ name: "Jeovani Mendez ", guess: 1100 },
-{ name: "Omar Najera Pacheco", guess: 1068 },
-{ name: "JOSE DANIEL PULIDO ", guess: 1057 },
-{ name: "HÃ©ctor Navarrete ", guess: 1050 },
-{ name: "Juan ramon estrada gonzalez", guess: 1050 },
-{ name: "Hector Navarrete ", guess: 1025 },
-{ name: "Jeovani Mendez ", guess: 990 },
-{ name: "Marco Solis", guess: 964 },
-{ name: "Marco Solis", guess: 941 },
-{ name: "Marco Solis", guess: 893 },
-{ name: "Leonardo millan", guess: 890 },
-{ name: "Pedro Arturo CiprÃ©s Villa", guess: 835 },
-{ name: "Marco", guess: 834 },
-{ name: "Javier GodÃ­nez SÃ¡nchez ", guess: 800 },
-{ name: "Israel valverde ", guess: 780 },
-{ name: "HÃ©ctor Navarrete ", guess: 750 },
-{ name: "Subash Muthu", guess: 750 },
-{ name: "Eduardo Octavio GutiÃ©rrez Montiel ", guess: 718 },
-{ name: "Eduardo Octavio GutiÃ©rrez Montiel ", guess: 714 },
-{ name: "Humberto Hernandez", guess: 700 },
-{ name: "Oscar narciso ", guess: 678 },
-{ name: "Javier Godinez Sanchez ", guess: 620 },
-{ name: "Marco Solis", guess: 613 },
-{ name: "Javier sainz", guess: 600 },
-{ name: "Marco", guess: 588 },
-{ name: "Marco Solis", guess: 583 },
-{ name: "Subash Muthu", guess: 570 },
-{ name: "HÃ©ctor Navarrete ", guess: 560 },
-{ name: "Javier GodÃ­nez SÃ¡nchez ", guess: 550 },
-{ name: "Pedro Arturo CiprÃ©s Villa", guess: 521 },
-{ name: "Subash Muthu", guess: 520 },
-{ name: "Javier Sainz", guess: 500 },
-{ name: "Javier GodÃ­nez SÃ¡nchez ", guess: 460 },
-{ name: "JOSE DANIEL PULIDO ", guess: 457 },
-{ name: "Javier Sainz", guess: 450 },
-{ name: "Leonardo millan", guess: 450 },
-{ name: "Pedro Arturo CiprÃ©s Villa", guess: 434 },
-{ name: "Javier Sainz", guess: 400 },
-{ name: "Marco Solis", guess: 375 },
-{ name: "Javier Sainz", guess: 350 },
-{ name: "Subash Muthu", guess: 350 },
-{ name: "Javier GodÃ­nez SÃ¡nchez ", guess: 300 },
-{ name: "Arun veerabathiran", guess: 300 },
-{ name: "Carlos espinosa", guess: 300 },
-{ name: "Arun veerabathiran", guess: 250 },
-{ name: "Pedro Arturo CiprÃ©s Villa", guess: 223 },
-{ name: "Andres", guess: 156 },
-{ name: "Alejandro de JesÃºs SÃ¡nchez Zaragoza ", guess: 130 },
-{ name: "Oscar narciso ", guess: 69 },
-{ name: "Ernesto Salazar Test", guess: 21 },
-{ name: "Ernesto Salazar Test", guess: 11 },
-{ name: "Luis Enrique Ochoa Soto ", guess: 4 },
-{ name: "Enrique Emmanuel DÃ­az Navarro", guess: 3 },
-{ name: "Enrique Emmanuel DÃ­az Navarro", guess: 3 },
-{ name: "Enrique Emmanuel DÃ­az Navarro", guess: 3 },
-{ name: "Juan Monroy ", guess: 3 },
-{ name: "Luisll", guess: 2 },
-{ name: "Christian Alexis Torres ", guess: 1 },
+            
+{ name: "Jose Carlos Javier Garcia Montiel", guess: 900 },
+{ name: "José Carlos Javier García ", guess: 950 },
+{ name: "Omar Alejandro Navarrete García ", guess: 1285 },
+{ name: "Omar Alejandro Navarrete García ", guess: 1455 },
+{ name: "Carlos ArturoRobles Quintero", guess: 1350 },
+{ name: "Carlos ArturoRobles Quintero", guess: 1245 },
+{ name: "Carlos ArturoRobles Quintero", guess: 1444 },
+{ name: "Carlos ArturoRobles Quintero", guess: 1185 },
+{ name: "Gildardo Zamora ", guess: 1300 },
+{ name: "Gildardo Zamora ", guess: 1800 },
+{ name: "Gildardo Zamora ", guess: 1960 },
+{ name: "Paul curiel", guess: 1200 },
+{ name: "Servando Contreras barrios", guess: 2000 },
+{ name: "Adrian llamas", guess: 1200 },
+{ name: "Adrian llamas", guess: 850 },
+{ name: "Adrian llamas", guess: 930 },
+{ name: "Adrian llamas", guess: 1400 },
+{ name: "Alejandro Esquivel Cardenas ", guess: 150 },
+{ name: "Alejandro Esquivel Cardenas ", guess: 500 },
+{ name: "Alejandro Esquivel Cardenas ", guess: 700 },
+{ name: "David delgado", guess: 760 },
+{ name: "Joseph alberto hernandez rodriguez ", guess: 723 },
+{ name: "Gabriel López ", guess: 3000 },
+{ name: "Gabriel López ", guess: 1500 },
+{ name: "Eduardo Ramirez", guess: 1728 },
+{ name: "Mario cervantes ", guess: 1200 },
+{ name: "Mario cervantes ", guess: 800 },
+{ name: "Gabriel tejeda", guess: 5129 },
+{ name: "Gabriel tejeda", guess: 5190 },
+{ name: "Gabriel tejeda", guess: 6058 },
+{ name: "Gabriel tejeda", guess: 4146 },
+{ name: "Gabriel tejeda", guess: 4629 },
+{ name: "Ulises Iván gallardo hernandez ", guess: 800 },
+{ name: "Ulises Iván gallardo hernandez ", guess: 850 },
+{ name: "Daniel Abinadi Moncada Salgado ", guess: 2943 },
+{ name: "Brian Rodolfo Fonseca González ", guess: 4837 },
+{ name: "Aarón Villegas ", guess: 975 },
+{ name: "Aarón Villegas ", guess: 11001 },
+{ name: "Adrian Ãlvarez ", guess: 1157 },
+{ name: "Eduardo Barbosa Correa ", guess: 1400 },
+{ name: "Carlos Michel González Altamirano ", guess: 1500 },
+{ name: "Carlos Michel González Altamirano ", guess: 2001 },
+{ name: "Jesús Alfredo contreras granados ", guess: 1250 },
+{ name: "Ivan soto", guess: 1500 },
+{ name: "Alfredo García zaragoza", guess: 847 },
+{ name: "Alfredo García zaragoza", guess: 907 },
+{ name: "Alfredo García zaragoza", guess: 947 },
+{ name: "Carlos Osuna ", guess: 1078 },
+{ name: "Pedro Enrique Centeno Palacios ", guess: 486 },
+{ name: "Alfredo Cruz", guess: 550 },
+{ name: "Alfredo Cruz", guess: 650 },
+{ name: "Diego Rigoberto Miranda Arizola", guess: 1084 },
+{ name: "Diego Rigoberto Miranda Arizola", guess: 1104 },
+{ name: "Diego Rigoberto Miranda Arizola", guess: 1120 },
+{ name: "Diego Rigoberto Miranda Arizola", guess: 750 },
+{ name: "Alberto Gómez ", guess: 2432 },
+{ name: "Diego garza", guess: 237 },
+{ name: "Jua paul gutierrez inda", guess: 1280 },
+{ name: "Carlos Cazares ", guess: 1080 },
+{ name: "Juan Paul Gutiérrez Inda", guess: 1100 },
+{ name: "Juan Paul Gutiérrez Inda", guess: 1050 },
+{ name: "Juan Paul Gutiérrez Inda", guess: 1150 },
+{ name: "Juan Paul Gutiérrez Inda", guess: 1200 },
+{ name: "Juan paul gutierrez inda", guess: 1998 },
+{ name: "Juan paul gutierrez inda", guess: 1780 },
+{ name: "Juan paul gutierrez inda", guess: 1800 },
+{ name: "Juan paul gutierrez inda", guess: 1250 },
+{ name: "Juan paul gutierrez inda", guess: 1888 },
+{ name: "Sergio Manuel Nolazcos Rodriguez ", guess: 2315 },
+{ name: "Sergio Manuel Nolazcos Rodriguez ", guess: 1380 },
+{ name: "Sergio Manuel Nolazcos Rodriguez ", guess: 1504 },
+{ name: "Edgar Alejandro Lozano Ocampo", guess: 1176 },
+{ name: "Juan leonel sanchez fregozo ", guess: 1320 },
+{ name: "Juan leonel sanchez fregozo ", guess: 1410 },
+{ name: "Juan leonel sanchez fregozo ", guess: 1390 },
+{ name: "Juan leonel sanchez fregozo ", guess: 1190 },
+{ name: "Pedro Armendariz", guess: 1865 },
+{ name: "Carlos ortega", guess: 1621 },
+{ name: "Luis Alberto Díaz ", guess: 1160 },
+{ name: "Luis Alberto Díaz ", guess: 380 },
+{ name: "Siul Efraín Rentería Llamas ", guess: 1758 },
+{ name: "Eliesib Samaniego", guess: 1000 },
+{ name: "Eliesib Samaniego", guess: 1050 },
+{ name: "Eliesib Samaniego", guess: 1150 },
+{ name: "Eliesib Samaniego", guess: 1200 },
+{ name: "Eliesib Samaniego", guess: 1250 },
+{ name: "Eliesib Samaniego", guess: 1350 },
+{ name: "Eliesib Samaniego", guess: 1300 },
+{ name: "Eliesib", guess: 1400 },
+{ name: "Eliesib", guess: 1450 },
+{ name: "Eliesib", guess: 1500 },
+{ name: "Eliesib", guess: 1550 },
+{ name: "Jair Romero ", guess: 875 },
+{ name: "Edgar lozano", guess: 900 },
+{ name: "Hugo Orlando Martínez Reyes ", guess: 1150 },
+{ name: "Hugo Orlando Martínez Reyes ", guess: 1000 },
+{ name: "Hugo Orlando Martínez Reyes ", guess: 550 },
+{ name: "Edgar Lozano ", guess: 850 },
+{ name: "Rogelio ramos", guess: 1600 },
+{ name: "Rogelio ramos", guess: 1700 },
+{ name: "Rogelio ramos", guess: 1800 },
+{ name: "Rogelio ramos", guess: 1650 },
+{ name: "Rogelio ramos", guess: 1850 },
+{ name: "Rogelio ramos", guess: 1680 },
+{ name: "Rogelio ramos", guess: 1690 },
+{ name: "Rogelio ramos", guess: 1670 },
+{ name: "Rogelio ramos", guess: 1675 },
+{ name: "Luis Manuel garcia", guess: 2000 },
+{ name: "Luis Manuel garcia", guess: 2200 },
+{ name: "Luis Manuel garcia", guess: 1800 },
+{ name: "Luis Manuel garcia", guess: 1600 },
+{ name: "Luis Manuel garcia", guess: 1350 },
+{ name: "Luis Manuel garcia", guess: 3000 },
+{ name: "Luis Manuel garcia", guess: 2300 },
+{ name: "Luis Manuel garcia", guess: 2600 },
+{ name: "Luis Manuel garcia", guess: 1900 },
+{ name: "Luis Manuel garcia", guess: 1000 },
+{ name: "Luis Manuel garcia", guess: 1200 },
+{ name: "Luis Manuel garcia", guess: 800 },
+{ name: "Luis Manuel garcia", guess: 900 },
+{ name: "Luis Manuel garcia", guess: 1500 },
+{ name: "Luis Manuel garcia", guess: 1400 },
+{ name: "Luis Manuel garcia", guess: 1300 },
+{ name: "Javier Peres", guess: 1450 },
+{ name: "Javier Peres", guess: 1358 },
+{ name: "Javier Peres", guess: 1250 },
+{ name: "Javier Perea", guess: 1210 },
+{ name: "Javier Perea", guess: 1410 },
+{ name: "Javier Perea", guess: 1320 },
+{ name: "Javier Peres", guess: 1296 },
+{ name: "Javier Peres", guess: 1222 },
+{ name: "Javier Peres", guess: 1285 },
+{ name: "Javier Peres", guess: 1315 },
+{ name: "Horacio Soria", guess: 200 },
+{ name: "Horacio Soria", guess: 400 },
+{ name: "Rafael de Jesús Pérez olimon ", guess: 1122 },
+{ name: "Valeco", guess: 1666 },
+{ name: "Valentin Guzmán Murillo", guess: 1188 },
+{ name: "Jahir alejandro romano hernandez", guess: 687 },
+{ name: "Jesús isaac", guess: 1300 },
+{ name: "Alberto", guess: 1900 },
+{ name: "Victor ramirez ", guess: 1050 },
+{ name: "Victor ramirez ", guess: 1200 },
+{ name: "Jose manuel amaya", guess: 1500 },
+{ name: "Carlos alejandro Rodriguez rivera ", guess: 1507 },
+{ name: "Carlos alejandro Rodriguez rivera ", guess: 1500 },
+{ name: "Carlos alejandro Rodriguez rivera ", guess: 1537 },
+{ name: "Carlos alejandro Rodriguez rivera ", guess: 1527 },
+{ name: "Ariel Jiménez ", guess: 9832 },
+{ name: "Mario Gallegos", guess: 1200 },
+{ name: "Mario Gallegos", guess: 1188 },
+{ name: "Mario Gallegos", guess: 1400 },
+{ name: "José Ernesto Vargas alcaraz", guess: 1080 },
+{ name: "José Ernesto Vargas alcaraz", guess: 1200 },
+{ name: "José Ernesto Vargas alcaraz", guess: 1110 },
+{ name: "José Ernesto Vargas alcaraz", guess: 1210 },
+{ name: "José Ernesto Vargas alcaraz", guess: 1000 },
+{ name: "José Ernesto Vargas alcaraz", guess: 1380 },
+{ name: "José Ernesto Vargas alcaraz", guess: 1500 },
+{ name: "José Ernesto Vargas alcaraz", guess: 1550 },
+{ name: "José Ernesto Vargas alcaraz", guess: 1450 },
+{ name: "Gerardo David", guess: 5 },
+{ name: "Gerardo David", guess: 4 },
+{ name: "Gerardo David", guess: 2 },
+{ name: "Gerardo David", guess: 6 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1000 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1008 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1016 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1024 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1032 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1040 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1048 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1056 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1064 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1072 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1080 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1088 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1096 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1104 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1105 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1110 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1115 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1120 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1125 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1130 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1135 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1140 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1145 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1150 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1155 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1160 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1165 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1170 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1180 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1190 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1200 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1205 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1210 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1215 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1220 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1225 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1230 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1235 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1240 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1245 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1250 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1255 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1260 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1265 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1270 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1275 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1280 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1285 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1290 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1295 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1300 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1305 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1310 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1315 },
+{ name: "Alvaro Alexis Sandoval Rivas", guess: 1320 },
+{ name: "Eduardo Ibrahim Parra Cortes", guess: 1296 },
+{ name: "García ", guess: 782 },
+{ name: "Ricardo oceguera ", guess: 1200 },
+{ name: "Josafat ", guess: 1280 },
+{ name: "Hectir Roberto ramirez meza ", guess: 1329 },
+{ name: "Hectir Roberto ramirez meza ", guess: 1029 },
+{ name: "César Jiménez ", guess: 1619 },
+{ name: "Musuani Hernandez ", guess: 1350 },
+{ name: "Carlos Jiménez Haro", guess: 1080 },
+{ name: "Lizandro delgado ", guess: 847 },
+{ name: "Jhoan", guess: 1406 },
+{ name: "Alejandro", guess: 650 },
+{ name: "Roberto alcantar ", guess: 1500 },
+{ name: "Roberto alcantar ", guess: 1510 },
+{ name: "Roberto alcantar ", guess: 1520 },
+{ name: "Roberto alcantar ", guess: 1540 },
+{ name: "Roberto alcantar ", guess: 1550 },
+{ name: "Roberto Alcantar ", guess: 1440 },
+{ name: "Roberto Alcantar ", guess: 1430 },
+{ name: "Roberto Alcantar ", guess: 1420 },
+{ name: "Roberto Alcantar ", guess: 1410 },
+{ name: "Roberto alcantar", guess: 1480 },
+{ name: "Roberto alcantar", guess: 1470 },
+{ name: "Roberto alcantar", guess: 1460 },
+{ name: "Roberto alcantar", guess: 1450 },
+{ name: "Roberto Alcantar ", guess: 1490 },
+{ name: "Roberto Alcantar ", guess: 1480 },
+{ name: "Roberto alcantar", guess: 1200 },
+{ name: "Roberto Alcantar ", guess: 1250 },
+{ name: "Roberto Alcantar ", guess: 1280 },
+{ name: "Roberto Alcantar ", guess: 1300 },
+{ name: "Carlos ", guess: 1355 },
+{ name: "Roberto Baeza", guess: 1450 },
+{ name: "José Antonio Reyes ", guess: 3670 },
+{ name: "Armando Mendoza ", guess: 570 },
+{ name: "Emanuel estrada gonzalez", guess: 1923 },
+{ name: "Justino becerra flores ", guess: 1300 },
+{ name: "Alan humberto escobar ", guess: 1800 },
+{ name: "Luis Ãngel ibarra", guess: 1420 },
+{ name: "Chema", guess: 950 },
+{ name: "Ariel Jiménez ", guess: 1223 },
+{ name: "Eliesib ", guess: 2000 },
+{ name: "Eliesib ", guess: 2050 },
+{ name: "Alberto Andrade", guess: 1123 },
+{ name: "Alberto Andrade", guess: 1250 },
+{ name: "Alberto Andrade", guess: 1260 },
+{ name: "Alberto Andrade", guess: 1300 },
+{ name: "Alberto Andrade", guess: 1350 },
+{ name: "Alberto Andrade", guess: 1400 },
+{ name: "Alberto Andrade", guess: 1450 },
+{ name: "Alberto Andrade", guess: 1500 },
+{ name: "Alberto Andrade", guess: 1550 },
+{ name: "Alberto Andrade", guess: 1600 },
+{ name: "Alberto Andrade", guess: 1650 },
+{ name: "Alberto Andrade", guess: 1700 },
+{ name: "Alberto Andrade", guess: 1189 },
+{ name: "Diego Miranda ", guess: 968 },
+{ name: "Diego Miranda ", guess: 1000 },
+{ name: "Diego Miranda ", guess: 1200 },
+{ name: "Diego Miranda ", guess: 990 },
+{ name: "Carlos", guess: 2000 },
+{ name: "Carlos", guess: 1500 },
+{ name: "Carlos", guess: 1300 },
+{ name: "Carlos", guess: 1400 },
+{ name: "Guillermo Perez", guess: 1323 },
+{ name: "Yovanni Curiel ", guess: 1500 },
+{ name: "Yovanni Curiel ", guess: 1750 },
+{ name: "Yovanni Curiel ", guess: 1650 },
+{ name: "Yovanni Curiel ", guess: 1400 },
+{ name: "Yovanni Curiel ", guess: 1130 },
+{ name: "Yovanni Curiel ", guess: 1810 },
+{ name: "Andres Navarrete", guess: 1652 },
+{ name: "Andres Navarrete", guess: 1489 },
+{ name: "Yovanni Curiel ", guess: 1860 },
+{ name: "Yovanni Curiel ", guess: 1570 },
+{ name: "Yovanni Curiel ", guess: 1440 },
+{ name: "Yovanni Curiel ", guess: 1300 },
+{ name: "Yovanni Curiel ", guess: 1900 },
+{ name: "Yovanni Curiel ", guess: 1188 },
+{ name: "Yovanni Curiel ", guess: 1220 },
+{ name: "José Roque Carrillo Carrillo", guess: 974 },
+{ name: "Angel Ãguila ", guess: 2125 },
+{ name: "Scheneider Barron Martinez ", guess: 1020 },
+{ name: "Scheneider Barron Martinez ", guess: 640 },
+{ name: "Scheneider Barron Martinez ", guess: 480 },
+{ name: "Eric alexis", guess: 1200 },
+{ name: "Luis Daniel arciniega garcia", guess: 1164 },
+{ name: "Luis Daniel arciniega garcia", guess: 1246 },
+{ name: "Christian Jesus garcia", guess: 96 },
+{ name: "Alfredo garcia", guess: 1300 },
+{ name: "Luis Alberto Silvestre Silvestre ", guess: 7102 },
+{ name: "Luis Alberto Silvestre Silvestre ", guess: 6834 },
+{ name: "Scheneider Barron ", guess: 979 },
+{ name: "Scheneider Barron ", guess: 1000 },
+{ name: "Luis Armenta", guess: 1240 },
+{ name: "Luis Armenta", guess: 2400 },
+{ name: "Luis Armenta", guess: 3800 },
+{ name: "Antonio olivo", guess: 2000 },
+{ name: "Antonio olivo", guess: 1000 },
+{ name: "Eduardo velez", guess: 3000 },
+{ name: "Gael Franco", guess: 700 },
+{ name: "Gael Franco", guess: 1116 },
+{ name: "Gael Franco", guess: 730 },
+{ name: "Gael Franco", guess: 780 },
+{ name: "Gael Franco", guess: 800 },
+{ name: "Gael Franco", guess: 840 },
+{ name: "Gael Franco", guess: 880 },
+{ name: "Gael Franco", guess: 900 },
+{ name: "Gael Franco", guess: 910 },
+{ name: "Gael Franco", guess: 920 },
+{ name: "Gael Franco", guess: 930 },
+{ name: "Gael Franco", guess: 940 },
+{ name: "Gael Franco", guess: 950 },
+{ name: "Gael Franco", guess: 1400 },
+{ name: "Gael Franco", guess: 970 },
+{ name: "Gael Franco", guess: 760 },
+{ name: "Gael Franco", guess: 1002 },
+{ name: "Gael Franco", guess: 965 },
+{ name: "Gael Franco", guess: 1130 },
+{ name: "Gael Franco", guess: 1200 },
+{ name: "Gael Franco", guess: 1150 },
+{ name: "Gael Franco", guess: 1000 },
+{ name: "Gael Franco", guess: 2200 },
+{ name: "Gael Franco", guess: 1700 },
+{ name: "Gael Franco", guess: 1111 },
+{ name: "Jorge Antonio Gomez", guess: 1450 },
+{ name: "Angel galindo ", guess: 1099 },
+{ name: "Javier Rocha", guess: 900 },
+{ name: "Javier Rocha", guess: 990 },
+{ name: "Javier Rocha", guess: 1000 },
+{ name: "Javier Rocha", guess: 980 },
+{ name: "Javier Rocha", guess: 1080 },
+{ name: "Javier Rocha", guess: 1140 },
+{ name: "Javier Rocha", guess: 999 },
+{ name: "Jorge gonzales ", guess: 1607 },
+{ name: "Jorge gonzales ", guess: 1414 },
+{ name: "Jorge gonzales ", guess: 914 },
+{ name: "Jorge gonzales ", guess: 1422 },
+{ name: "Jorge gonzales ", guess: 1814 },
+{ name: "Jorge gonzales ", guess: 808 },
+{ name: "Jorge gonzales ", guess: 1088 },
+{ name: "Jorge gonzales ", guess: 1002 },
+{ name: "Francisco Zepeda Hernandez", guess: 1000 },
+{ name: "Francisco Zepeda Hernandez", guess: 800 },
+{ name: "Francisco Zepeda Hernandez", guess: 850 },
+{ name: "Francisco Zepeda Hernandez", guess: 950 },
+{ name: "Francisco Zepeda Hernandez", guess: 880 },
+{ name: "Francisco Zepeda Hernandez", guess: 890 },
+{ name: "Francisco Zepeda Hernandez", guess: 7505 },
+{ name: "Alberto Rodriguez", guess: 1200 },
+{ name: "Marcos zeferino", guess: 1400 },
+{ name: "Diego leon", guess: 1000 },
+{ name: "Jose hadrían haro velazquez ", guess: 2000 },
+{ name: "Jesús lara ", guess: 500 },
+{ name: "Jesús lara ", guess: 600 },
+{ name: "Jesús lara ", guess: 400 },
+{ name: "Ernesto de Jesús Alaniz  navarrete ", guess: 1540 },
+{ name: "Owen Marssel de la Cruz Noriega ", guess: 1500 },
+{ name: "Owen Marssel de la Cruz Noriega ", guess: 2000 },
+{ name: "Owen Marssel de la Cruz Noriega ", guess: 1150 },
+{ name: "Owen Marssel de la Cruz Noriega ", guess: 1369 },
+{ name: "Owen Marssel de la Cruz Noriega ", guess: 1480 },
+{ name: "Owen Marssel de la Cruz Noriega ", guess: 2500 },
+{ name: "Owen Marssel de la Cruz Noriega ", guess: 1610 },
+{ name: "Owen Marssel de la Cruz Noriega ", guess: 950 },
+{ name: "Manuel Martínez ", guess: 1872 },
+{ name: "Alfredo Enrique maravillas barriga ", guess: 1250 },
+{ name: "Alfredo Enrique maravillas barriga ", guess: 1200 },
+{ name: "Alfredo Enrique maravillas barriga ", guess: 1180 },
+{ name: "Edgar arreola", guess: 1750 },
+{ name: "Miguel orozco", guess: 2000 },
+{ name: "Jorge lopez", guess: 900 },
+{ name: "Alejandro ", guess: 1080 },
+{ name: "Alejandro ", guess: 1300 },
+{ name: "Alejandro ", guess: 1200 },
+{ name: "Alejandro ", guess: 1500 },
+{ name: "Alejandro ", guess: 379 },
+{ name: "Daniel Velez", guess: 870 },
+{ name: "Daniel Velez", guess: 1300 },
+{ name: "Daniel Velez", guess: 980 },
+{ name: "Daniel Velez", guess: 1110 },
+{ name: "Kevin Parra ", guess: 523 },
+{ name: "Guillermo perez ", guess: 3400 },
+{ name: "Ricardo verde ", guess: 1320 },
+{ name: "Paul Rodriguez ", guess: 1521 },
+{ name: "Omar Santiago Estrada Sandoval ", guess: 710 },
+{ name: "Omar Santiago Estrada Sandoval ", guess: 810 },
+{ name: "Francisco Estrada Llamas ", guess: 1185 },
+{ name: "Angel palafox", guess: 3000 },
+{ name: "Angel palafox", guess: 670 },
+{ name: "Eduardo Lopez Sanchez", guess: 2372 },
+{ name: "Eduardo Lopez Sanchez", guess: 1751 },
+{ name: "Eduardo Lopez Sanchez", guess: 2109 },
+{ name: "Eduardo Lopez Sanchez", guess: 1231 },
+{ name: "Raymundo Carbajal rodriguez", guess: 2125 },
+{ name: "Raymundo Carbajal rodriguez", guess: 2880 },
+{ name: "Jorge Arturo gutierrez", guess: 1623 },
+{ name: "Jorge Arturo gutierrez", guess: 1355 },
+{ name: "Irvin Garcia", guess: 1800 },
+{ name: "Irvin Garcia", guess: 2500 },
+{ name: "Irvin Garcia", guess: 2300 },
+{ name: "Jose Manriquez ", guess: 1440 },
+{ name: "Jose Manriquez ", guess: 1357 },
+{ name: "Jose Manriquez ", guess: 1251 },
+{ name: "Jose Manriquez ", guess: 1421 },
+{ name: "Daniel Mardueño ", guess: 1327 },
+{ name: "RAUL GUERRa romano", guess: 9500 },
+{ name: "RAUL GUERRa romano", guess: 1600 },
+{ name: "RAUL GUERRa romano", guess: 11200 },
+{ name: "Raul guerra romano", guess: 7390 },
+{ name: "Raulguerraromano", guess: 1396 },
+{ name: "Hector Manuel verdin cambero ", guess: 9000 },
+{ name: "Hector Manuel verdin cambero ", guess: 7000 },
+{ name: "Hector Manuel verdin cambero ", guess: 980 },
+{ name: "Herctor Manuel verdin cambero ", guess: 1848 },
+{ name: "Herctor Manuel verdin cambero ", guess: 1200 },
+{ name: "Jorge ", guess: 5000 },
+{ name: "Hector Manuel verdin cambero ", guess: 1721 },
+{ name: "Hector Manuel verdin cambero ", guess: 7400 },
+{ name: "Manuel Rodríguez ", guess: 777 },
+{ name: "Hector Manuel verdin cambero ", guess: 3100 },
+{ name: "Chema curiel", guess: 802 },
+{ name: "Chema curiel", guess: 1357 },
+{ name: "Chema curiel", guess: 999 },
+{ name: "Chema curiel", guess: 1054 },
+{ name: "Chema curiel", guess: 1044 },
+{ name: "Chema curiel", guess: 981 },
+{ name: "Chema curiel", guess: 996 },
+{ name: "Chema curiel", guess: 964 },
+{ name: "Chema curiel", guess: 992 },
+{ name: "Chema curiel", guess: 750 },
+{ name: "Chema curiel", guess: 1216 },
+{ name: "Chema curiel", guess: 981 },
+{ name: "Chema curiel", guess: 983 },
+{ name: "Chema curiel", guess: 847 },
+{ name: "Chema curiel", guess: 1146 },
+{ name: "Chema curiel", guess: 888 },
+{ name: "Alexis jaudiel ", guess: 824 },
+{ name: "Alexis jaudiel ", guess: 840 },
+{ name: "Alexis jaudiel ", guess: 860 },
+{ name: "Alexis jaudiel ", guess: 1182 },
+{ name: "Chema curiel ", guess: 959 },
+{ name: "Chema curiel ", guess: 836 },
+{ name: "Chema curiel ", guess: 890 },
+{ name: "Chema curiel ", guess: 1208 },
+{ name: "Ricardo Partida", guess: 2350 },
+{ name: "Roberto Jair Romero vazquez ", guess: 1851 },
+{ name: "Humberto pintor ", guess: 1400 },
+{ name: "Ricardo partida", guess: 3000 },
+{ name: "Ricardo partida", guess: 1200 },
+{ name: "José Manuel navarrete", guess: 350 },
+{ name: "José Manuel navarrete", guess: 398 },
+{ name: "José Manuel navarrete", guess: 987 },
+{ name: "Leonardo Daniel velez Rodriguez ", guess: 2650 },
+{ name: "Leonardo Daniel velez Rodriguez ", guess: 1632 },
+{ name: "José Manuel navarrete", guess: 500 },
+{ name: "José Manuel navarrete", guess: 750 },
+{ name: "José Manuel navarrete", guess: 475 },
+{ name: "José Manuel navarrete", guess: 400 },
+{ name: "José Manuel navarrete", guess: 800 },
+{ name: "José Manuel navarrete", guess: 801 },
+{ name: "Luis Eduardo Hernández Jiménez ", guess: 19000 },
+{ name: "Joel Martínez Hernández ", guess: 2200 },
 
-
-            // Puedes agregar más participantes aquí
+            // Más participantes
         ];
 
-        const actualBalls = 2000; // Número real de pelotas
+        const actualBalls = 1101;
 
         function startTombola() {
-        // Limpiar y ocultar elementos antes de iniciar
-        document.getElementById("countdown").innerText = ""; // Limpiar el contador
-        document.getElementById("result").classList.remove("show"); // Ocultar resultados
-        document.getElementById("closestResults").classList.remove("show"); // Ocultar resultados cercanos
-        document.getElementById("winnerText").classList.add("hidden"); // Ocultar texto de ganador
-        
-        // Ocultar la lista de participantes
-        document.getElementById("participantsList").style.display = "none"; // Ocultar la lista de participantes
+            document.getElementById("countdown").innerText = "";
+            document.getElementById("result").classList.remove("show");
+            document.getElementById("closestResults").classList.remove("show");
+            document.getElementById("winnerText").classList.add("hidden");
+            document.getElementById("participantsList").style.display = "none";
+	    document.getElementById("participantsList2").style.display = "none";
+	    document.getElementById("participantsList3").style.display = "none";
+            document.getElementById("startBtn").style.display = "none";
 
-        // Ocultar el botón de inicio
-        document.getElementById("startBtn").style.display = "none"; // Ocultar el botón al iniciar el sorteo
-        
-        let countdown = 10; // Tiempo del contador en segundos
-        const countdownInterval = setInterval(() => {
-            document.getElementById("countdown").innerText = countdown;
-            countdown--;
-            if (countdown < 0) {
-                clearInterval(countdownInterval);
-                document.getElementById("countdown").innerText = ""; // Limpiar el contador
-                selectWinner();
-                launchConfetti(); // Lanzar confeti al terminar el contador
-            }
-        }, 1000);
-    }
-
-       function launchConfetti() {
-    let duration = 5000; // Duración total del confeti en milisegundos
-    let animationEnd = Date.now() + duration;
-    let interval = 100; // Intervalo de tiempo para generar confeti
-
-    function randomInRange(min, max) {
-        return Math.random() * (max - min) + min;
-    }
-
-    let confettiInterval = setInterval(() => {
-        confetti({
-            startVelocity: randomInRange(50, 100),
-            angle: randomInRange(55, 125),
-            spread: randomInRange(50, 100),
-            decay: randomInRange(0.9, 0.95),
-            scalar: randomInRange(1, 3),
-            particles: 10, // Cantidad de confeti generado en cada intervalo
-            colors: ['#FFD700', '#C0C0C0'] // Dorado y plateado
-        });
-
-        if (Date.now() > animationEnd) {
-            clearInterval(confettiInterval); // Detener el confeti después de la duración
+            let countdown = 10;
+            const countdownInterval = setInterval(() => {
+                document.getElementById("countdown").innerText = countdown;
+                countdown--;
+                if (countdown < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById("countdown").innerText = "";
+                    selectWinner();
+                    launchConfetti();
+                }
+            }, 1000);
         }
-    }, interval);
-}
-		
-         function selectWinner() {
+
+        function launchConfetti() {
+            let duration = 5000;
+            let animationEnd = Date.now() + duration;
+            let interval = 100;
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            let confettiInterval = setInterval(() => {
+                confetti({
+                    startVelocity: randomInRange(20, 100),
+                    angle: randomInRange(30, 125),
+                    spread: randomInRange(50, 100),
+                    decay: randomInRange(0.9, 0.95),
+                    scalar: randomInRange(1, 3),
+                    particles: 100,
+                    colors: ['#FFD700', '#C0C0C0']
+                });
+
+                if (Date.now() > animationEnd) {
+                    clearInterval(confettiInterval);
+                }
+            }, interval);
+        }
+
+        function selectWinner() {
     const winners = participants.filter(participant => participant.guess === actualBalls);
     console.log("Ganadores exactos: ", winners);  // Depuración
 
@@ -1630,7 +1316,7 @@
             // Filtrar los participantes más cercanos que no excedan el número de pelotas
             const closestParticipants = validParticipants.filter(participant => Math.abs(participant.guess - actualBalls) === closestDiff);
 
-            let closestText = `<div class="boxA">No hubo ganadores exactos. Los más cercanos fueron:</div><br>`;
+            let closestText = `<div class="boxA">Los más cercanos fueron:</div><br>`;
             closestParticipants.forEach(participant => {
                 closestText += `<div class="boxA">${participant.name} (${participant.guess} pelotas)</div>`;
             });
@@ -1645,6 +1331,7 @@
         document.getElementById("winnerText").classList.remove("hidden");
     }
 }
+
 
 
     </script>
